@@ -8,11 +8,6 @@ curl -X 'GET' \
 
 # Generate the client
 docker run --rm --user 1000 \
-  -v ${PWD}:/local openapitools/openapi-generator-cli generate \
+  -v ${PWD}:/local openapitools/openapi-generator-cli validate \
   -i /local/openapi.json \
-  -g typescript-node \
-  -c /local/config.yaml \
-  -e mustache \
-  -t /local/templates \
-  --remove-operation-id-prefix \
-  -o /local
+  --recommend
