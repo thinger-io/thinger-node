@@ -1,0 +1,14 @@
+disallowAdditionalPropertiesIfNotPresent: false
+licenseName: "MIT"
+npmName: "thinger-node"
+npmRepository: "https://github.com/thinger-io/thinger-node"
+npmVersion: "0.0.1"
+supportsES6: true
+validationAttributes: true
+withInterfaces: true
+openapiNormalizer:
+  REMOVE_X_INTERNAL: true
+  KEEP_ONLY_FIRST_TAG_IN_OPERATION: true
+# Global config
+apiTests: true
+modelTests: true
