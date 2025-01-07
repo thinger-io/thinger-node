@@ -1,17 +1,24 @@
-disallowAdditionalPropertiesIfNotPresent: false
-licenseName: "MIT"
-npmName: "thinger-node"
-npmRepository: "https://github.com/thinger-io/thinger-node"
-npmVersion: "0.0.1"
-supportsES6: true
-validationAttributes: true
-withInterfaces: true
+generatorName: typescript
+outputDir: /local/src
+inputSpec: /local/openapi.clean.json
+templateDir: /local/templates
+additionalProperties:
+  disallowAdditionalPropertiesIfNotPresent: false
+  licenseName: "MIT"
+  npmName: "@thinger-io/thinger-node"
+  npmVersion: "0.1.0"
+  platform: "node"
+  supportsES6: true
+  useObjectParameters: false
+  importFileExtension: ".js"
+  #validationAttributes: true
+  #withInterfaces: true
 openapiNormalizer:
+  SIMPLIFY_ONEOF_ANYOF: true
   REMOVE_X_INTERNAL: true
   KEEP_ONLY_FIRST_TAG_IN_OPERATION: true
+  SIMPLIFY_ANYOF_STRING_AND_ENUM_STRING: true
+  REFACTOR_ALLOF_WITH_PROPERTIES_ONLY: false
 reservedWordsMappings:
   delete: remove
   export: exportData
-# Global config
-apiTests: true
-modelTests: true
