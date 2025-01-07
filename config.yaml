@@ -2,6 +2,8 @@ generatorName: typescript
 outputDir: /local/src
 inputSpec: /local/openapi.clean.json
 templateDir: /local/templates
+gitUserId: "thinger-io"
+gitRepoId: "thinger-node"
 additionalProperties:
   disallowAdditionalPropertiesIfNotPresent: false
   licenseName: "MIT"

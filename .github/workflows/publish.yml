@@ -65,6 +65,8 @@ jobs:
         working-directory: ./src
         run: |
           cp ../README.md ../CHANGELOG.md .
+          npm install --only=dev
+          npm run build
           npm publish --tag ${{ env.npm_tag_version }} --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
