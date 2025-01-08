@@ -269,18 +269,18 @@ export class {{classname}}ResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
+            if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                throw new ApiException<undefined>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], response.body, response.headers);
+            }
             {{#returnType}}
             {{#isBinary}}
             const body: {{{returnType}}} = await response.getBodyAsFile() as any as {{{returnType}}};
             {{/isBinary}}
             {{^isBinary}}
-            let body : {{{returnType}}} | undefined;
-            if ( typeof response.body !== 'undefined' ) {
-                body = ObjectSerializer.deserialize(
-                    ObjectSerializer.parse(await response.body.text(), contentType),
-                    "{{{returnType}}}", "{{returnFormat}}"
-                ) as {{{returnType}}};
-            }
+            const body : {{{returnType}}} = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "{{{returnType}}}", "{{returnFormat}}"
+            ) as {{{returnType}}};
             {{/isBinary}}
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
             {{/returnType}}
