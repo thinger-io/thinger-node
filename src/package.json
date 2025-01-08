@@ -1,6 +1,6 @@
 {
   "name": "@thinger-io/thinger-node",
-  "version": "0.1.0-alpha.4",
+  "version": "0.1.0",
   "description": "OpenAPI client for @thinger-io/thinger-node",
   "author": "OpenAPI-Generator Contributors",
   "repository": {
