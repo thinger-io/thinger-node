@@ -274,10 +274,13 @@ export class {{classname}}ResponseProcessor {
             const body: {{{returnType}}} = await response.getBodyAsFile() as any as {{{returnType}}};
             {{/isBinary}}
             {{^isBinary}}
-            const body: {{{returnType}}} = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "{{{returnType}}}", "{{returnFormat}}"
-            ) as {{{returnType}}};
+            let body : {{{returnType}}} | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "{{{returnType}}}", "{{returnFormat}}"
+                ) as {{{returnType}}};
+            }
             {{/isBinary}}
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
             {{/returnType}}

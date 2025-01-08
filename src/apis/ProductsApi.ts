@@ -1841,10 +1841,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -1897,10 +1900,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -1953,10 +1959,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2009,10 +2018,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2065,10 +2077,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2121,10 +2136,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2177,10 +2195,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2233,10 +2254,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2289,10 +2313,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2345,10 +2372,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2401,10 +2431,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2457,10 +2490,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2513,10 +2549,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2569,10 +2608,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2625,10 +2667,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2681,10 +2726,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2737,10 +2785,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2793,10 +2844,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2849,10 +2903,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2905,10 +2962,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -2961,10 +3021,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -3017,10 +3080,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -3073,10 +3139,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -3129,10 +3198,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -3185,10 +3257,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -3241,10 +3316,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -3297,10 +3375,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
@@ -3353,10 +3434,13 @@ export class ProductsApiResponseProcessor {
 
         // Work around for missing error responses in thinger openapi specification
         if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
-            const body: any = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "any", ""
-            ) as any;
+            let body : any | undefined;
+            if ( typeof response.body !== 'undefined' ) {
+                body = ObjectSerializer.deserialize(
+                    ObjectSerializer.parse(await response.body.text(), contentType),
+                    "any", ""
+                ) as any;
+            }
             throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
         }
 
