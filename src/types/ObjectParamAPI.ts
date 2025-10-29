@@ -10,9 +10,12 @@ import { DeviceUpdateRequest } from '../models/DeviceUpdateRequest.js';
 import { DeviceUpdateRequestAssetGroup } from '../models/DeviceUpdateRequestAssetGroup.js';
 import { OperatorExpressions } from '../models/OperatorExpressions.js';
 import { PluginClonePropertyRequest } from '../models/PluginClonePropertyRequest.js';
+import { ProductClonePropertyRequest } from '../models/ProductClonePropertyRequest.js';
 import { ProductCloneRequest } from '../models/ProductCloneRequest.js';
 import { ProductConditionalIcon } from '../models/ProductConditionalIcon.js';
 import { ProductConditionalIconConditionsInner } from '../models/ProductConditionalIconConditionsInner.js';
+import { ProductConditionalIconConditionsInnerOneOf } from '../models/ProductConditionalIconConditionsInnerOneOf.js';
+import { ProductConditionalIconConditionsInnerOneOf1 } from '../models/ProductConditionalIconConditionsInnerOneOf1.js';
 import { ProductConfig } from '../models/ProductConfig.js';
 import { ProductCreateFirmwareRequest } from '../models/ProductCreateFirmwareRequest.js';
 import { ProductCreateRequest } from '../models/ProductCreateRequest.js';
@@ -22,6 +25,7 @@ import { ProductUpdateRequest } from '../models/ProductUpdateRequest.js';
 import { Property } from '../models/Property.js';
 import { PropertyCreate } from '../models/PropertyCreate.js';
 import { PropertyForm } from '../models/PropertyForm.js';
+import { PropertyPerm } from '../models/PropertyPerm.js';
 import { PropertyUpdate } from '../models/PropertyUpdate.js';
 
 import { ObservableDevicesApi } from "./ObservableAPI.js";
@@ -79,6 +83,30 @@ export interface DevicesApiAccessOutputResourcesRequest {
      * @memberof DevicesApiaccessOutputResources
      */
     resource: string
+}
+
+export interface DevicesApiAccessRemoteDesktopVncRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DevicesApiaccessRemoteDesktopVnc
+     */
+    user: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DevicesApiaccessRemoteDesktopVnc
+     */
+    device: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DevicesApiaccessRemoteDesktopVnc
+     */
+    service: string
 }
 
 export interface DevicesApiAccessResourcesRequest {
@@ -168,6 +196,23 @@ export interface DevicesApiCloneRequest {
     deviceCloneRequest: DeviceCloneRequest
 }
 
+export interface DevicesApiCloneConfigRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DevicesApicloneConfig
+     */
+    user: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DevicesApicloneConfig
+     */
+    device: string
+}
+
 export interface DevicesApiClonePropertyRequest {
     /**
      * 
@@ -192,10 +237,34 @@ export interface DevicesApiClonePropertyRequest {
     property: string
     /**
      * 
-     * @type PluginClonePropertyRequest
+     * @type ProductClonePropertyRequest
      * @memberof DevicesApicloneProperty
      */
-    pluginClonePropertyRequest: PluginClonePropertyRequest
+    productClonePropertyRequest: ProductClonePropertyRequest
+}
+
+export interface DevicesApiClonePropertyConfigRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DevicesApiclonePropertyConfig
+     */
+    user: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DevicesApiclonePropertyConfig
+     */
+    device: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DevicesApiclonePropertyConfig
+     */
+    property: string
 }
 
 export interface DevicesApiCreateRequest {
@@ -564,6 +633,30 @@ export interface DevicesApiReadPropertyRequest {
     property: string
 }
 
+export interface DevicesApiReadServiceRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DevicesApireadService
+     */
+    user: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DevicesApireadService
+     */
+    device: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof DevicesApireadService
+     */
+    service: string
+}
+
 export interface DevicesApiReadStatisticsRequest {
     /**
      * 
@@ -879,6 +972,22 @@ export class ObjectDevicesApi {
     }
 
     /**
+     * AccessDeviceRemoteDesktop
+     * @param param the request object
+     */
+    public accessRemoteDesktopVncWithHttpInfo(param: DevicesApiAccessRemoteDesktopVncRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.accessRemoteDesktopVncWithHttpInfo(param.user, param.device, param.service,  options).toPromise();
+    }
+
+    /**
+     * AccessDeviceRemoteDesktop
+     * @param param the request object
+     */
+    public accessRemoteDesktopVnc(param: DevicesApiAccessRemoteDesktopVncRequest, options?: Configuration): Promise<any> {
+        return this.api.accessRemoteDesktopVnc(param.user, param.device, param.service,  options).toPromise();
+    }
+
+    /**
      * AccessDeviceResources
      * @param param the request object
      */
@@ -943,11 +1052,27 @@ export class ObjectDevicesApi {
     }
 
     /**
+     * CloneDeviceConfig
+     * @param param the request object
+     */
+    public cloneConfigWithHttpInfo(param: DevicesApiCloneConfigRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.cloneConfigWithHttpInfo(param.user, param.device,  options).toPromise();
+    }
+
+    /**
+     * CloneDeviceConfig
+     * @param param the request object
+     */
+    public cloneConfig(param: DevicesApiCloneConfigRequest, options?: Configuration): Promise<any> {
+        return this.api.cloneConfig(param.user, param.device,  options).toPromise();
+    }
+
+    /**
      * CloneDeviceProperty
      * @param param the request object
      */
     public clonePropertyWithHttpInfo(param: DevicesApiClonePropertyRequest, options?: Configuration): Promise<HttpInfo<any>> {
-        return this.api.clonePropertyWithHttpInfo(param.user, param.device, param.property, param.pluginClonePropertyRequest,  options).toPromise();
+        return this.api.clonePropertyWithHttpInfo(param.user, param.device, param.property, param.productClonePropertyRequest,  options).toPromise();
     }
 
     /**
@@ -955,7 +1080,23 @@ export class ObjectDevicesApi {
      * @param param the request object
      */
     public cloneProperty(param: DevicesApiClonePropertyRequest, options?: Configuration): Promise<any> {
-        return this.api.cloneProperty(param.user, param.device, param.property, param.pluginClonePropertyRequest,  options).toPromise();
+        return this.api.cloneProperty(param.user, param.device, param.property, param.productClonePropertyRequest,  options).toPromise();
+    }
+
+    /**
+     * CloneDevicePropertyConfig
+     * @param param the request object
+     */
+    public clonePropertyConfigWithHttpInfo(param: DevicesApiClonePropertyConfigRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.clonePropertyConfigWithHttpInfo(param.user, param.device, param.property,  options).toPromise();
+    }
+
+    /**
+     * CloneDevicePropertyConfig
+     * @param param the request object
+     */
+    public clonePropertyConfig(param: DevicesApiClonePropertyConfigRequest, options?: Configuration): Promise<any> {
+        return this.api.clonePropertyConfig(param.user, param.device, param.property,  options).toPromise();
     }
 
     /**
@@ -1244,6 +1385,22 @@ export class ObjectDevicesApi {
      */
     public readProperty(param: DevicesApiReadPropertyRequest, options?: Configuration): Promise<any> {
         return this.api.readProperty(param.user, param.device, param.property,  options).toPromise();
+    }
+
+    /**
+     * ReadDeviceService
+     * @param param the request object
+     */
+    public readServiceWithHttpInfo(param: DevicesApiReadServiceRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.readServiceWithHttpInfo(param.user, param.device, param.service,  options).toPromise();
+    }
+
+    /**
+     * ReadDeviceService
+     * @param param the request object
+     */
+    public readService(param: DevicesApiReadServiceRequest, options?: Configuration): Promise<any> {
+        return this.api.readService(param.user, param.device, param.service,  options).toPromise();
     }
 
     /**
@@ -1677,6 +1834,30 @@ export interface PluginsApiClonePropertyRequest {
     pluginClonePropertyRequest: PluginClonePropertyRequest
 }
 
+export interface PluginsApiClonePropertyConfigRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof PluginsApiclonePropertyConfig
+     */
+    user: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof PluginsApiclonePropertyConfig
+     */
+    plugin: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof PluginsApiclonePropertyConfig
+     */
+    property: string
+}
+
 export interface PluginsApiCreatePropertyRequest {
     /**
      * 
@@ -2096,6 +2277,22 @@ export class ObjectPluginsApi {
     }
 
     /**
+     * ClonePluginPropertyConfig
+     * @param param the request object
+     */
+    public clonePropertyConfigWithHttpInfo(param: PluginsApiClonePropertyConfigRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.clonePropertyConfigWithHttpInfo(param.user, param.plugin, param.property,  options).toPromise();
+    }
+
+    /**
+     * ClonePluginPropertyConfig
+     * @param param the request object
+     */
+    public clonePropertyConfig(param: PluginsApiClonePropertyConfigRequest, options?: Configuration): Promise<any> {
+        return this.api.clonePropertyConfig(param.user, param.plugin, param.property,  options).toPromise();
+    }
+
+    /**
      * CreatePluginProperty
      * @param param the request object
      */
@@ -2308,6 +2505,36 @@ export class ObjectPluginsApi {
 import { ObservableProductsApi } from "./ObservableAPI.js";
 import { ProductsApiRequestFactory, ProductsApiResponseProcessor} from "../apis/ProductsApi.js";
 
+export interface ProductsApiAccessResourcesRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApiaccessResources
+     */
+    user: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApiaccessResources
+     */
+    product: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApiaccessResources
+     */
+    resource: string
+    /**
+     * 
+     * @type any
+     * @memberof ProductsApiaccessResources
+     */
+    body: any
+}
+
 export interface ProductsApiCloneRequest {
     /**
      * 
@@ -2329,6 +2556,23 @@ export interface ProductsApiCloneRequest {
      * @memberof ProductsApiclone
      */
     productCloneRequest: ProductCloneRequest
+}
+
+export interface ProductsApiCloneConfigRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApicloneConfig
+     */
+    user: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApicloneConfig
+     */
+    product: string
 }
 
 export interface ProductsApiClonePropertyRequest {
@@ -2355,10 +2599,34 @@ export interface ProductsApiClonePropertyRequest {
     property: string
     /**
      * 
-     * @type PluginClonePropertyRequest
+     * @type ProductClonePropertyRequest
      * @memberof ProductsApicloneProperty
      */
-    pluginClonePropertyRequest: PluginClonePropertyRequest
+    productClonePropertyRequest: ProductClonePropertyRequest
+}
+
+export interface ProductsApiClonePropertyConfigRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApiclonePropertyConfig
+     */
+    user: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApiclonePropertyConfig
+     */
+    product: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApiclonePropertyConfig
+     */
+    property: string
 }
 
 export interface ProductsApiCreateRequest {
@@ -2454,6 +2722,37 @@ export interface ProductsApiDeleteFirmwareRequest {
     firmwareVersion: string
 }
 
+export interface ProductsApiDeleteProductProfileResourceRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApideleteProductProfileResource
+     */
+    user: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApideleteProductProfileResource
+     */
+    product: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApideleteProductProfileResource
+     */
+    category: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApideleteProductProfileResource
+     */
+    resource: string
+}
+
 export interface ProductsApiDeletePropertyRequest {
     /**
      * 
@@ -2476,6 +2775,30 @@ export interface ProductsApiDeletePropertyRequest {
      * @memberof ProductsApideleteProperty
      */
     property: string
+}
+
+export interface ProductsApiDeleteServicesRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApideleteServices
+     */
+    user: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApideleteServices
+     */
+    product: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApideleteServices
+     */
+    service: string
 }
 
 export interface ProductsApiExportDataRequest {
@@ -2642,6 +2965,37 @@ export interface ProductsApiReadFirmwareConfigRequest {
     firmwareVersion: string
 }
 
+export interface ProductsApiReadProductProfileResourceRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApireadProductProfileResource
+     */
+    user: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApireadProductProfileResource
+     */
+    product: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApireadProductProfileResource
+     */
+    category: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApireadProductProfileResource
+     */
+    resource: string
+}
+
 export interface ProductsApiReadProfileRequest {
     /**
      * 
@@ -2663,7 +3017,7 @@ export interface ProductsApiReadProfileRequest {
      * @type string
      * @memberof ProductsApireadProfile
      */
-    resource: string
+    category: string
 }
 
 export interface ProductsApiReadPropertyRequest {
@@ -2705,13 +3059,30 @@ export interface ProductsApiReadServicesRequest {
      * @memberof ProductsApireadServices
      */
     product: string
+}
+
+export interface ProductsApiReadServices0Request {
     /**
      * 
      * Defaults to: undefined
      * @type string
-     * @memberof ProductsApireadServices
+     * @memberof ProductsApireadServices_1
      */
-    resource: string
+    user: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApireadServices_1
+     */
+    product: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApireadServices_1
+     */
+    service: string
 }
 
 export interface ProductsApiRemoveRequest {
@@ -2853,6 +3224,43 @@ export interface ProductsApiUpdateFirmwareToolchainRequest {
     firmwareVersion: string
 }
 
+export interface ProductsApiUpdateProductProfileResourceRequest {
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApiupdateProductProfileResource
+     */
+    user: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApiupdateProductProfileResource
+     */
+    product: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApiupdateProductProfileResource
+     */
+    category: string
+    /**
+     * 
+     * Defaults to: undefined
+     * @type string
+     * @memberof ProductsApiupdateProductProfileResource
+     */
+    resource: string
+    /**
+     * 
+     * @type any
+     * @memberof ProductsApiupdateProductProfileResource
+     */
+    body: any
+}
+
 export interface ProductsApiUpdateProfileRequest {
     /**
      * 
@@ -2874,7 +3282,7 @@ export interface ProductsApiUpdateProfileRequest {
      * @type string
      * @memberof ProductsApiupdateProfile
      */
-    resource: string
+    category: string
     /**
      * 
      * @type any
@@ -2980,7 +3388,7 @@ export interface ProductsApiUpdateServicesRequest {
      * @type string
      * @memberof ProductsApiupdateServices
      */
-    resource: string
+    service: string
     /**
      * 
      * @type any
@@ -2994,6 +3402,22 @@ export class ObjectProductsApi {
 
     public constructor(configuration: Configuration, requestFactory?: ProductsApiRequestFactory, responseProcessor?: ProductsApiResponseProcessor) {
         this.api = new ObservableProductsApi(configuration, requestFactory, responseProcessor);
+    }
+
+    /**
+     * AccessProductResources
+     * @param param the request object
+     */
+    public accessResourcesWithHttpInfo(param: ProductsApiAccessResourcesRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.accessResourcesWithHttpInfo(param.user, param.product, param.resource, param.body,  options).toPromise();
+    }
+
+    /**
+     * AccessProductResources
+     * @param param the request object
+     */
+    public accessResources(param: ProductsApiAccessResourcesRequest, options?: Configuration): Promise<any> {
+        return this.api.accessResources(param.user, param.product, param.resource, param.body,  options).toPromise();
     }
 
     /**
@@ -3013,11 +3437,27 @@ export class ObjectProductsApi {
     }
 
     /**
+     * CloneProductConfig
+     * @param param the request object
+     */
+    public cloneConfigWithHttpInfo(param: ProductsApiCloneConfigRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.cloneConfigWithHttpInfo(param.user, param.product,  options).toPromise();
+    }
+
+    /**
+     * CloneProductConfig
+     * @param param the request object
+     */
+    public cloneConfig(param: ProductsApiCloneConfigRequest, options?: Configuration): Promise<any> {
+        return this.api.cloneConfig(param.user, param.product,  options).toPromise();
+    }
+
+    /**
      * CloneProductProperty
      * @param param the request object
      */
     public clonePropertyWithHttpInfo(param: ProductsApiClonePropertyRequest, options?: Configuration): Promise<HttpInfo<any>> {
-        return this.api.clonePropertyWithHttpInfo(param.user, param.product, param.property, param.pluginClonePropertyRequest,  options).toPromise();
+        return this.api.clonePropertyWithHttpInfo(param.user, param.product, param.property, param.productClonePropertyRequest,  options).toPromise();
     }
 
     /**
@@ -3025,7 +3465,23 @@ export class ObjectProductsApi {
      * @param param the request object
      */
     public cloneProperty(param: ProductsApiClonePropertyRequest, options?: Configuration): Promise<any> {
-        return this.api.cloneProperty(param.user, param.product, param.property, param.pluginClonePropertyRequest,  options).toPromise();
+        return this.api.cloneProperty(param.user, param.product, param.property, param.productClonePropertyRequest,  options).toPromise();
+    }
+
+    /**
+     * CloneProductPropertyConfig
+     * @param param the request object
+     */
+    public clonePropertyConfigWithHttpInfo(param: ProductsApiClonePropertyConfigRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.clonePropertyConfigWithHttpInfo(param.user, param.product, param.property,  options).toPromise();
+    }
+
+    /**
+     * CloneProductPropertyConfig
+     * @param param the request object
+     */
+    public clonePropertyConfig(param: ProductsApiClonePropertyConfigRequest, options?: Configuration): Promise<any> {
+        return this.api.clonePropertyConfig(param.user, param.product, param.property,  options).toPromise();
     }
 
     /**
@@ -3093,6 +3549,22 @@ export class ObjectProductsApi {
     }
 
     /**
+     * UpdateProductProfile
+     * @param param the request object
+     */
+    public deleteProductProfileResourceWithHttpInfo(param: ProductsApiDeleteProductProfileResourceRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.deleteProductProfileResourceWithHttpInfo(param.user, param.product, param.category, param.resource,  options).toPromise();
+    }
+
+    /**
+     * UpdateProductProfile
+     * @param param the request object
+     */
+    public deleteProductProfileResource(param: ProductsApiDeleteProductProfileResourceRequest, options?: Configuration): Promise<any> {
+        return this.api.deleteProductProfileResource(param.user, param.product, param.category, param.resource,  options).toPromise();
+    }
+
+    /**
      * DeleteProductProperty
      * @param param the request object
      */
@@ -3106,6 +3578,22 @@ export class ObjectProductsApi {
      */
     public deleteProperty(param: ProductsApiDeletePropertyRequest, options?: Configuration): Promise<any> {
         return this.api.deleteProperty(param.user, param.product, param.property,  options).toPromise();
+    }
+
+    /**
+     * DeleteProductServices
+     * @param param the request object
+     */
+    public deleteServicesWithHttpInfo(param: ProductsApiDeleteServicesRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.deleteServicesWithHttpInfo(param.user, param.product, param.service,  options).toPromise();
+    }
+
+    /**
+     * DeleteProductServices
+     * @param param the request object
+     */
+    public deleteServices(param: ProductsApiDeleteServicesRequest, options?: Configuration): Promise<any> {
+        return this.api.deleteServices(param.user, param.product, param.service,  options).toPromise();
     }
 
     /**
@@ -3240,8 +3728,24 @@ export class ObjectProductsApi {
      * ReadProductProfile
      * @param param the request object
      */
+    public readProductProfileResourceWithHttpInfo(param: ProductsApiReadProductProfileResourceRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.readProductProfileResourceWithHttpInfo(param.user, param.product, param.category, param.resource,  options).toPromise();
+    }
+
+    /**
+     * ReadProductProfile
+     * @param param the request object
+     */
+    public readProductProfileResource(param: ProductsApiReadProductProfileResourceRequest, options?: Configuration): Promise<any> {
+        return this.api.readProductProfileResource(param.user, param.product, param.category, param.resource,  options).toPromise();
+    }
+
+    /**
+     * ReadProductProfile
+     * @param param the request object
+     */
     public readProfileWithHttpInfo(param: ProductsApiReadProfileRequest, options?: Configuration): Promise<HttpInfo<any>> {
-        return this.api.readProfileWithHttpInfo(param.user, param.product, param.resource,  options).toPromise();
+        return this.api.readProfileWithHttpInfo(param.user, param.product, param.category,  options).toPromise();
     }
 
     /**
@@ -3249,7 +3753,7 @@ export class ObjectProductsApi {
      * @param param the request object
      */
     public readProfile(param: ProductsApiReadProfileRequest, options?: Configuration): Promise<any> {
-        return this.api.readProfile(param.user, param.product, param.resource,  options).toPromise();
+        return this.api.readProfile(param.user, param.product, param.category,  options).toPromise();
     }
 
     /**
@@ -3273,7 +3777,7 @@ export class ObjectProductsApi {
      * @param param the request object
      */
     public readServicesWithHttpInfo(param: ProductsApiReadServicesRequest, options?: Configuration): Promise<HttpInfo<any>> {
-        return this.api.readServicesWithHttpInfo(param.user, param.product, param.resource,  options).toPromise();
+        return this.api.readServicesWithHttpInfo(param.user, param.product,  options).toPromise();
     }
 
     /**
@@ -3281,7 +3785,23 @@ export class ObjectProductsApi {
      * @param param the request object
      */
     public readServices(param: ProductsApiReadServicesRequest, options?: Configuration): Promise<any> {
-        return this.api.readServices(param.user, param.product, param.resource,  options).toPromise();
+        return this.api.readServices(param.user, param.product,  options).toPromise();
+    }
+
+    /**
+     * ReadProductServices
+     * @param param the request object
+     */
+    public readServices_1WithHttpInfo(param: ProductsApiReadServices0Request, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.readServices_1WithHttpInfo(param.user, param.product, param.service,  options).toPromise();
+    }
+
+    /**
+     * ReadProductServices
+     * @param param the request object
+     */
+    public readServices_1(param: ProductsApiReadServices0Request, options?: Configuration): Promise<any> {
+        return this.api.readServices_1(param.user, param.product, param.service,  options).toPromise();
     }
 
     /**
@@ -3368,8 +3888,24 @@ export class ObjectProductsApi {
      * UpdateProductProfile
      * @param param the request object
      */
+    public updateProductProfileResourceWithHttpInfo(param: ProductsApiUpdateProductProfileResourceRequest, options?: Configuration): Promise<HttpInfo<any>> {
+        return this.api.updateProductProfileResourceWithHttpInfo(param.user, param.product, param.category, param.resource, param.body,  options).toPromise();
+    }
+
+    /**
+     * UpdateProductProfile
+     * @param param the request object
+     */
+    public updateProductProfileResource(param: ProductsApiUpdateProductProfileResourceRequest, options?: Configuration): Promise<any> {
+        return this.api.updateProductProfileResource(param.user, param.product, param.category, param.resource, param.body,  options).toPromise();
+    }
+
+    /**
+     * UpdateProductProfile
+     * @param param the request object
+     */
     public updateProfileWithHttpInfo(param: ProductsApiUpdateProfileRequest, options?: Configuration): Promise<HttpInfo<any>> {
-        return this.api.updateProfileWithHttpInfo(param.user, param.product, param.resource, param.body,  options).toPromise();
+        return this.api.updateProfileWithHttpInfo(param.user, param.product, param.category, param.body,  options).toPromise();
     }
 
     /**
@@ -3377,7 +3913,7 @@ export class ObjectProductsApi {
      * @param param the request object
      */
     public updateProfile(param: ProductsApiUpdateProfileRequest, options?: Configuration): Promise<any> {
-        return this.api.updateProfile(param.user, param.product, param.resource, param.body,  options).toPromise();
+        return this.api.updateProfile(param.user, param.product, param.category, param.body,  options).toPromise();
     }
 
     /**
@@ -3433,7 +3969,7 @@ export class ObjectProductsApi {
      * @param param the request object
      */
     public updateServicesWithHttpInfo(param: ProductsApiUpdateServicesRequest, options?: Configuration): Promise<HttpInfo<any>> {
-        return this.api.updateServicesWithHttpInfo(param.user, param.product, param.resource, param.body,  options).toPromise();
+        return this.api.updateServicesWithHttpInfo(param.user, param.product, param.service, param.body,  options).toPromise();
     }
 
     /**
@@ -3441,7 +3977,7 @@ export class ObjectProductsApi {
      * @param param the request object
      */
     public updateServices(param: ProductsApiUpdateServicesRequest, options?: Configuration): Promise<any> {
-        return this.api.updateServices(param.user, param.product, param.resource, param.body,  options).toPromise();
+        return this.api.updateServices(param.user, param.product, param.service, param.body,  options).toPromise();
     }
 
 }

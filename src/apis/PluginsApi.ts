@@ -596,6 +596,64 @@ export class PluginsApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * ClonePluginPropertyConfig
+     * @param user 
+     * @param plugin 
+     * @param property 
+     */
+    public async clonePropertyConfig(user: string, plugin: string, property: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'user' is not null or undefined
+        if (user === null || user === undefined) {
+            throw new RequiredError("PluginsApi", "clonePropertyConfig", "user");
+        }
+
+
+        // verify required parameter 'plugin' is not null or undefined
+        if (plugin === null || plugin === undefined) {
+            throw new RequiredError("PluginsApi", "clonePropertyConfig", "plugin");
+        }
+
+
+        // verify required parameter 'property' is not null or undefined
+        if (property === null || property === undefined) {
+            throw new RequiredError("PluginsApi", "clonePropertyConfig", "property");
+        }
+
+
+        // Path Params
+        const localVarPath = '/v1/users/{user}/plugins/{plugin}/properties/{property}/clone'
+            .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
+            .replace('{' + 'plugin' + '}', encodeURIComponent(String(plugin)))
+            .replace('{' + 'property' + '}', encodeURIComponent(String(property)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["oauth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      * CreatePluginProperty
      * @param user 
      * @param plugin 
@@ -1815,6 +1873,65 @@ export class PluginsApiResponseProcessor {
      * @throws ApiException if the response code was not in [200, 299]
      */
      public async clonePropertyWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
+        const contentLength = response.headers["content-length"];
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+                if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                    return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+                }
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "unauthorized", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "forbidden", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing error responses in thinger openapi specification
+        if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
+            if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                throw new ApiException<undefined>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], undefined, response.headers);
+            }
+            const body : any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to clonePropertyConfig
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async clonePropertyConfigWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
         const contentLength = response.headers["content-length"];
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {

@@ -18,7 +18,6 @@ export class IsomorphicFetchHttpLibrary implements HttpLibrary {
             headers: request.getHeaders(),
             {{#platforms}}
             {{#node}}
-            // @ts-expect-error
             dispatcher: request.getAgent(),
             {{/node}}
             {{#browser}}

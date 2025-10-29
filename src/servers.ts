@@ -49,6 +49,6 @@ export class ServerConfiguration<T extends { [key: string]: string }> implements
     }
 }
 
-export const server1 = new ServerConfiguration<{  }>("https://localhost:80", {  })
+export const server1 = new ServerConfiguration<{  }>("https://perf.aws.thinger.io:443", {  })
 
 export const servers = [server1];

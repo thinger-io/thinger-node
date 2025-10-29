@@ -11,6 +11,7 @@
  */
 
 import { PropertyForm } from '../models/PropertyForm.js';
+import { PropertyPerm } from '../models/PropertyPerm.js';
 import { HttpFile } from '../http/http.js';
 
 /**
@@ -26,6 +27,7 @@ export class Property {
     * The name of the resource, limited to 255 characters. It can include any character.
     */
     'name'?: string;
+    'perm'?: PropertyPerm;
     /**
     * A unique identifier for resources, consisting of alphanumeric characters, underscores, or hyphens, and limited to 32 characters.
     */
@@ -54,6 +56,12 @@ export class Property {
             "name": "name",
             "baseName": "name",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "perm",
+            "baseName": "perm",
+            "type": "PropertyPerm",
             "format": ""
         },
         {

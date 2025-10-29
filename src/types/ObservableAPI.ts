@@ -11,9 +11,12 @@ import { DeviceUpdateRequest } from '../models/DeviceUpdateRequest.js';
 import { DeviceUpdateRequestAssetGroup } from '../models/DeviceUpdateRequestAssetGroup.js';
 import { OperatorExpressions } from '../models/OperatorExpressions.js';
 import { PluginClonePropertyRequest } from '../models/PluginClonePropertyRequest.js';
+import { ProductClonePropertyRequest } from '../models/ProductClonePropertyRequest.js';
 import { ProductCloneRequest } from '../models/ProductCloneRequest.js';
 import { ProductConditionalIcon } from '../models/ProductConditionalIcon.js';
 import { ProductConditionalIconConditionsInner } from '../models/ProductConditionalIconConditionsInner.js';
+import { ProductConditionalIconConditionsInnerOneOf } from '../models/ProductConditionalIconConditionsInnerOneOf.js';
+import { ProductConditionalIconConditionsInnerOneOf1 } from '../models/ProductConditionalIconConditionsInnerOneOf1.js';
 import { ProductConfig } from '../models/ProductConfig.js';
 import { ProductCreateFirmwareRequest } from '../models/ProductCreateFirmwareRequest.js';
 import { ProductCreateRequest } from '../models/ProductCreateRequest.js';
@@ -23,6 +26,7 @@ import { ProductUpdateRequest } from '../models/ProductUpdateRequest.js';
 import { Property } from '../models/Property.js';
 import { PropertyCreate } from '../models/PropertyCreate.js';
 import { PropertyForm } from '../models/PropertyForm.js';
+import { PropertyPerm } from '../models/PropertyPerm.js';
 import { PropertyUpdate } from '../models/PropertyUpdate.js';
 
 import { DevicesApiRequestFactory, DevicesApiResponseProcessor} from "../apis/DevicesApi.js";
@@ -111,6 +115,41 @@ export class ObservableDevicesApi {
      */
     public accessOutputResources(user: string, device: string, resource: string, _options?: Configuration): Observable<any> {
         return this.accessOutputResourcesWithHttpInfo(user, device, resource, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * AccessDeviceRemoteDesktop
+     * @param user
+     * @param device
+     * @param service
+     */
+    public accessRemoteDesktopVncWithHttpInfo(user: string, device: string, service: string, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.accessRemoteDesktopVnc(user, device, service, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.accessRemoteDesktopVncWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * AccessDeviceRemoteDesktop
+     * @param user
+     * @param device
+     * @param service
+     */
+    public accessRemoteDesktopVnc(user: string, device: string, service: string, _options?: Configuration): Observable<any> {
+        return this.accessRemoteDesktopVncWithHttpInfo(user, device, service, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
     }
 
     /**
@@ -252,14 +291,47 @@ export class ObservableDevicesApi {
     }
 
     /**
+     * CloneDeviceConfig
+     * @param user
+     * @param device
+     */
+    public cloneConfigWithHttpInfo(user: string, device: string, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.cloneConfig(user, device, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.cloneConfigWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * CloneDeviceConfig
+     * @param user
+     * @param device
+     */
+    public cloneConfig(user: string, device: string, _options?: Configuration): Observable<any> {
+        return this.cloneConfigWithHttpInfo(user, device, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
      * CloneDeviceProperty
      * @param user
      * @param device
      * @param property
-     * @param pluginClonePropertyRequest
+     * @param productClonePropertyRequest
      */
-    public clonePropertyWithHttpInfo(user: string, device: string, property: string, pluginClonePropertyRequest: PluginClonePropertyRequest, _options?: Configuration): Observable<HttpInfo<any>> {
-        const requestContextPromise = this.requestFactory.cloneProperty(user, device, property, pluginClonePropertyRequest, _options);
+    public clonePropertyWithHttpInfo(user: string, device: string, property: string, productClonePropertyRequest: ProductClonePropertyRequest, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.cloneProperty(user, device, property, productClonePropertyRequest, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -282,10 +354,45 @@ export class ObservableDevicesApi {
      * @param user
      * @param device
      * @param property
-     * @param pluginClonePropertyRequest
+     * @param productClonePropertyRequest
      */
-    public cloneProperty(user: string, device: string, property: string, pluginClonePropertyRequest: PluginClonePropertyRequest, _options?: Configuration): Observable<any> {
-        return this.clonePropertyWithHttpInfo(user, device, property, pluginClonePropertyRequest, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    public cloneProperty(user: string, device: string, property: string, productClonePropertyRequest: ProductClonePropertyRequest, _options?: Configuration): Observable<any> {
+        return this.clonePropertyWithHttpInfo(user, device, property, productClonePropertyRequest, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * CloneDevicePropertyConfig
+     * @param user
+     * @param device
+     * @param property
+     */
+    public clonePropertyConfigWithHttpInfo(user: string, device: string, property: string, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.clonePropertyConfig(user, device, property, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.clonePropertyConfigWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * CloneDevicePropertyConfig
+     * @param user
+     * @param device
+     * @param property
+     */
+    public clonePropertyConfig(user: string, device: string, property: string, _options?: Configuration): Observable<any> {
+        return this.clonePropertyConfigWithHttpInfo(user, device, property, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
     }
 
     /**
@@ -898,6 +1005,41 @@ export class ObservableDevicesApi {
      */
     public readProperty(user: string, device: string, property: string, _options?: Configuration): Observable<any> {
         return this.readPropertyWithHttpInfo(user, device, property, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * ReadDeviceService
+     * @param user
+     * @param device
+     * @param service
+     */
+    public readServiceWithHttpInfo(user: string, device: string, service: string, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.readService(user, device, service, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.readServiceWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * ReadDeviceService
+     * @param user
+     * @param device
+     * @param service
+     */
+    public readService(user: string, device: string, service: string, _options?: Configuration): Observable<any> {
+        return this.readServiceWithHttpInfo(user, device, service, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
     }
 
     /**
@@ -1658,6 +1800,41 @@ export class ObservablePluginsApi {
     }
 
     /**
+     * ClonePluginPropertyConfig
+     * @param user
+     * @param plugin
+     * @param property
+     */
+    public clonePropertyConfigWithHttpInfo(user: string, plugin: string, property: string, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.clonePropertyConfig(user, plugin, property, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.clonePropertyConfigWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * ClonePluginPropertyConfig
+     * @param user
+     * @param plugin
+     * @param property
+     */
+    public clonePropertyConfig(user: string, plugin: string, property: string, _options?: Configuration): Observable<any> {
+        return this.clonePropertyConfigWithHttpInfo(user, plugin, property, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
      * CreatePluginProperty
      * @param user
      * @param plugin
@@ -2119,6 +2296,43 @@ export class ObservableProductsApi {
     }
 
     /**
+     * AccessProductResources
+     * @param user
+     * @param product
+     * @param resource
+     * @param body
+     */
+    public accessResourcesWithHttpInfo(user: string, product: string, resource: string, body: any, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.accessResources(user, product, resource, body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.accessResourcesWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * AccessProductResources
+     * @param user
+     * @param product
+     * @param resource
+     * @param body
+     */
+    public accessResources(user: string, product: string, resource: string, body: any, _options?: Configuration): Observable<any> {
+        return this.accessResourcesWithHttpInfo(user, product, resource, body, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
      * CloneProduct
      * @param user
      * @param product
@@ -2154,14 +2368,47 @@ export class ObservableProductsApi {
     }
 
     /**
+     * CloneProductConfig
+     * @param user
+     * @param product
+     */
+    public cloneConfigWithHttpInfo(user: string, product: string, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.cloneConfig(user, product, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.cloneConfigWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * CloneProductConfig
+     * @param user
+     * @param product
+     */
+    public cloneConfig(user: string, product: string, _options?: Configuration): Observable<any> {
+        return this.cloneConfigWithHttpInfo(user, product, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
      * CloneProductProperty
      * @param user
      * @param product
      * @param property
-     * @param pluginClonePropertyRequest
+     * @param productClonePropertyRequest
      */
-    public clonePropertyWithHttpInfo(user: string, product: string, property: string, pluginClonePropertyRequest: PluginClonePropertyRequest, _options?: Configuration): Observable<HttpInfo<any>> {
-        const requestContextPromise = this.requestFactory.cloneProperty(user, product, property, pluginClonePropertyRequest, _options);
+    public clonePropertyWithHttpInfo(user: string, product: string, property: string, productClonePropertyRequest: ProductClonePropertyRequest, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.cloneProperty(user, product, property, productClonePropertyRequest, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -2184,10 +2431,45 @@ export class ObservableProductsApi {
      * @param user
      * @param product
      * @param property
-     * @param pluginClonePropertyRequest
+     * @param productClonePropertyRequest
      */
-    public cloneProperty(user: string, product: string, property: string, pluginClonePropertyRequest: PluginClonePropertyRequest, _options?: Configuration): Observable<any> {
-        return this.clonePropertyWithHttpInfo(user, product, property, pluginClonePropertyRequest, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    public cloneProperty(user: string, product: string, property: string, productClonePropertyRequest: ProductClonePropertyRequest, _options?: Configuration): Observable<any> {
+        return this.clonePropertyWithHttpInfo(user, product, property, productClonePropertyRequest, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * CloneProductPropertyConfig
+     * @param user
+     * @param product
+     * @param property
+     */
+    public clonePropertyConfigWithHttpInfo(user: string, product: string, property: string, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.clonePropertyConfig(user, product, property, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.clonePropertyConfigWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * CloneProductPropertyConfig
+     * @param user
+     * @param product
+     * @param property
+     */
+    public clonePropertyConfig(user: string, product: string, property: string, _options?: Configuration): Observable<any> {
+        return this.clonePropertyConfigWithHttpInfo(user, product, property, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
     }
 
     /**
@@ -2331,6 +2613,43 @@ export class ObservableProductsApi {
     }
 
     /**
+     * UpdateProductProfile
+     * @param user
+     * @param product
+     * @param category
+     * @param resource
+     */
+    public deleteProductProfileResourceWithHttpInfo(user: string, product: string, category: string, resource: string, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.deleteProductProfileResource(user, product, category, resource, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.deleteProductProfileResourceWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * UpdateProductProfile
+     * @param user
+     * @param product
+     * @param category
+     * @param resource
+     */
+    public deleteProductProfileResource(user: string, product: string, category: string, resource: string, _options?: Configuration): Observable<any> {
+        return this.deleteProductProfileResourceWithHttpInfo(user, product, category, resource, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
      * DeleteProductProperty
      * @param user
      * @param product
@@ -2363,6 +2682,41 @@ export class ObservableProductsApi {
      */
     public deleteProperty(user: string, product: string, property: string, _options?: Configuration): Observable<any> {
         return this.deletePropertyWithHttpInfo(user, product, property, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * DeleteProductServices
+     * @param user
+     * @param product
+     * @param service
+     */
+    public deleteServicesWithHttpInfo(user: string, product: string, service: string, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.deleteServices(user, product, service, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.deleteServicesWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * DeleteProductServices
+     * @param user
+     * @param product
+     * @param service
+     */
+    public deleteServices(user: string, product: string, service: string, _options?: Configuration): Observable<any> {
+        return this.deleteServicesWithHttpInfo(user, product, service, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
     }
 
     /**
@@ -2641,10 +2995,47 @@ export class ObservableProductsApi {
      * ReadProductProfile
      * @param user
      * @param product
+     * @param category
      * @param resource
      */
-    public readProfileWithHttpInfo(user: string, product: string, resource: string, _options?: Configuration): Observable<HttpInfo<any>> {
-        const requestContextPromise = this.requestFactory.readProfile(user, product, resource, _options);
+    public readProductProfileResourceWithHttpInfo(user: string, product: string, category: string, resource: string, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.readProductProfileResource(user, product, category, resource, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.readProductProfileResourceWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * ReadProductProfile
+     * @param user
+     * @param product
+     * @param category
+     * @param resource
+     */
+    public readProductProfileResource(user: string, product: string, category: string, resource: string, _options?: Configuration): Observable<any> {
+        return this.readProductProfileResourceWithHttpInfo(user, product, category, resource, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * ReadProductProfile
+     * @param user
+     * @param product
+     * @param category
+     */
+    public readProfileWithHttpInfo(user: string, product: string, category: string, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.readProfile(user, product, category, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -2666,10 +3057,10 @@ export class ObservableProductsApi {
      * ReadProductProfile
      * @param user
      * @param product
-     * @param resource
+     * @param category
      */
-    public readProfile(user: string, product: string, resource: string, _options?: Configuration): Observable<any> {
-        return this.readProfileWithHttpInfo(user, product, resource, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    public readProfile(user: string, product: string, category: string, _options?: Configuration): Observable<any> {
+        return this.readProfileWithHttpInfo(user, product, category, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
     }
 
     /**
@@ -2711,10 +3102,9 @@ export class ObservableProductsApi {
      * ReadProductServices
      * @param user
      * @param product
-     * @param resource
      */
-    public readServicesWithHttpInfo(user: string, product: string, resource: string, _options?: Configuration): Observable<HttpInfo<any>> {
-        const requestContextPromise = this.requestFactory.readServices(user, product, resource, _options);
+    public readServicesWithHttpInfo(user: string, product: string, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.readServices(user, product, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -2736,10 +3126,44 @@ export class ObservableProductsApi {
      * ReadProductServices
      * @param user
      * @param product
-     * @param resource
      */
-    public readServices(user: string, product: string, resource: string, _options?: Configuration): Observable<any> {
-        return this.readServicesWithHttpInfo(user, product, resource, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    public readServices(user: string, product: string, _options?: Configuration): Observable<any> {
+        return this.readServicesWithHttpInfo(user, product, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * ReadProductServices
+     * @param user
+     * @param product
+     * @param service
+     */
+    public readServices_1WithHttpInfo(user: string, product: string, service: string, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.readServices_1(user, product, service, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.readServices_1WithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * ReadProductServices
+     * @param user
+     * @param product
+     * @param service
+     */
+    public readServices_1(user: string, product: string, service: string, _options?: Configuration): Observable<any> {
+        return this.readServices_1WithHttpInfo(user, product, service, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
     }
 
     /**
@@ -2927,11 +3351,50 @@ export class ObservableProductsApi {
      * UpdateProductProfile
      * @param user
      * @param product
+     * @param category
      * @param resource
      * @param body
      */
-    public updateProfileWithHttpInfo(user: string, product: string, resource: string, body: any, _options?: Configuration): Observable<HttpInfo<any>> {
-        const requestContextPromise = this.requestFactory.updateProfile(user, product, resource, body, _options);
+    public updateProductProfileResourceWithHttpInfo(user: string, product: string, category: string, resource: string, body: any, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.updateProductProfileResource(user, product, category, resource, body, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.updateProductProfileResourceWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * UpdateProductProfile
+     * @param user
+     * @param product
+     * @param category
+     * @param resource
+     * @param body
+     */
+    public updateProductProfileResource(user: string, product: string, category: string, resource: string, body: any, _options?: Configuration): Observable<any> {
+        return this.updateProductProfileResourceWithHttpInfo(user, product, category, resource, body, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    }
+
+    /**
+     * UpdateProductProfile
+     * @param user
+     * @param product
+     * @param category
+     * @param body
+     */
+    public updateProfileWithHttpInfo(user: string, product: string, category: string, body: any, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.updateProfile(user, product, category, body, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -2953,11 +3416,11 @@ export class ObservableProductsApi {
      * UpdateProductProfile
      * @param user
      * @param product
-     * @param resource
+     * @param category
      * @param body
      */
-    public updateProfile(user: string, product: string, resource: string, body: any, _options?: Configuration): Observable<any> {
-        return this.updateProfileWithHttpInfo(user, product, resource, body, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    public updateProfile(user: string, product: string, category: string, body: any, _options?: Configuration): Observable<any> {
+        return this.updateProfileWithHttpInfo(user, product, category, body, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
     }
 
     /**
@@ -3071,11 +3534,11 @@ export class ObservableProductsApi {
      * UpdateProductServices
      * @param user
      * @param product
-     * @param resource
+     * @param service
      * @param body
      */
-    public updateServicesWithHttpInfo(user: string, product: string, resource: string, body: any, _options?: Configuration): Observable<HttpInfo<any>> {
-        const requestContextPromise = this.requestFactory.updateServices(user, product, resource, body, _options);
+    public updateServicesWithHttpInfo(user: string, product: string, service: string, body: any, _options?: Configuration): Observable<HttpInfo<any>> {
+        const requestContextPromise = this.requestFactory.updateServices(user, product, service, body, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -3097,11 +3560,11 @@ export class ObservableProductsApi {
      * UpdateProductServices
      * @param user
      * @param product
-     * @param resource
+     * @param service
      * @param body
      */
-    public updateServices(user: string, product: string, resource: string, body: any, _options?: Configuration): Observable<any> {
-        return this.updateServicesWithHttpInfo(user, product, resource, body, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
+    public updateServices(user: string, product: string, service: string, body: any, _options?: Configuration): Observable<any> {
+        return this.updateServicesWithHttpInfo(user, product, service, body, _options).pipe(map((apiResponse: HttpInfo<any>) => apiResponse.data));
     }
 
 }

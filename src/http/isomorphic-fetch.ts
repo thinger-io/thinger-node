@@ -11,7 +11,6 @@ export class IsomorphicFetchHttpLibrary implements HttpLibrary {
             method: method,
             body: body as any,
             headers: request.getHeaders(),
-            // @ts-expect-error
             dispatcher: request.getAgent(),
         }).then((resp: any) => {
             const headers: { [name: string]: string } = {};

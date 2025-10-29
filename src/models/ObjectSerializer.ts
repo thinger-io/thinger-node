@@ -7,9 +7,12 @@ export * from '../models/DeviceUpdateRequest.js';
 export * from '../models/DeviceUpdateRequestAssetGroup.js';
 export * from '../models/OperatorExpressions.js';
 export * from '../models/PluginClonePropertyRequest.js';
+export * from '../models/ProductClonePropertyRequest.js';
 export * from '../models/ProductCloneRequest.js';
 export * from '../models/ProductConditionalIcon.js';
 export * from '../models/ProductConditionalIconConditionsInner.js';
+export * from '../models/ProductConditionalIconConditionsInnerOneOf.js';
+export * from '../models/ProductConditionalIconConditionsInnerOneOf1.js';
 export * from '../models/ProductConfig.js';
 export * from '../models/ProductCreateFirmwareRequest.js';
 export * from '../models/ProductCreateRequest.js';
@@ -19,6 +22,7 @@ export * from '../models/ProductUpdateRequest.js';
 export * from '../models/Property.js';
 export * from '../models/PropertyCreate.js';
 export * from '../models/PropertyForm.js';
+export * from '../models/PropertyPerm.js';
 export * from '../models/PropertyUpdate.js';
 
 import { ComparisonExpressions } from '../models/ComparisonExpressions.js';
@@ -30,19 +34,23 @@ import { DeviceUpdateRequest } from '../models/DeviceUpdateRequest.js';
 import { DeviceUpdateRequestAssetGroupClass } from '../models/DeviceUpdateRequestAssetGroup.js';
 import { OperatorExpressions } from '../models/OperatorExpressions.js';
 import { PluginClonePropertyRequest } from '../models/PluginClonePropertyRequest.js';
+import { ProductClonePropertyRequest } from '../models/ProductClonePropertyRequest.js';
 import { ProductCloneRequest } from '../models/ProductCloneRequest.js';
 import { ProductConditionalIcon } from '../models/ProductConditionalIcon.js';
-import { ProductConditionalIconConditionsInner     } from '../models/ProductConditionalIconConditionsInner.js';
+import { ProductConditionalIconConditionsInnerClass } from '../models/ProductConditionalIconConditionsInner.js';
+import { ProductConditionalIconConditionsInnerOneOf      } from '../models/ProductConditionalIconConditionsInnerOneOf.js';
+import { ProductConditionalIconConditionsInnerOneOf1       } from '../models/ProductConditionalIconConditionsInnerOneOf1.js';
 import { ProductConfig } from '../models/ProductConfig.js';
 import { ProductCreateFirmwareRequest } from '../models/ProductCreateFirmwareRequest.js';
 import { ProductCreateRequest } from '../models/ProductCreateRequest.js';
-import { ProductField } from '../models/ProductField.js';
+import { ProductField   , ProductFieldTypeEnum    } from '../models/ProductField.js';
 import { ProductIcon    , ProductIconTypeEnum   } from '../models/ProductIcon.js';
 import { ProductUpdateRequest } from '../models/ProductUpdateRequest.js';
-import { Property    , PropertyTypeEnum    } from '../models/Property.js';
-import { PropertyCreate    , PropertyCreateTypeEnum    } from '../models/PropertyCreate.js';
+import { Property     , PropertyTypeEnum    } from '../models/Property.js';
+import { PropertyCreate     , PropertyCreateTypeEnum    } from '../models/PropertyCreate.js';
 import { PropertyForm } from '../models/PropertyForm.js';
-import { PropertyUpdate    , PropertyUpdateTypeEnum    } from '../models/PropertyUpdate.js';
+import { PropertyPerm, PropertyPermHiddenEnum  , PropertyPermReadOnlyEnum   } from '../models/PropertyPerm.js';
+import { PropertyUpdate     , PropertyUpdateTypeEnum    } from '../models/PropertyUpdate.js';
 
 /* tslint:disable:no-unused-variable */
 let primitives = [
@@ -59,9 +67,12 @@ let primitives = [
 let enumsMap: Set<string> = new Set<string>([
     "ComparisonExpressions",
     "OperatorExpressions",
+    "ProductFieldTypeEnum",
     "ProductIconTypeEnum",
     "PropertyTypeEnum",
     "PropertyCreateTypeEnum",
+    "PropertyPermHiddenEnum",
+    "PropertyPermReadOnlyEnum",
     "PropertyUpdateTypeEnum",
 ]);
 
@@ -73,9 +84,12 @@ let typeMap: {[index: string]: any} = {
     "DeviceUpdateRequest": DeviceUpdateRequest,
     "DeviceUpdateRequestAssetGroup": DeviceUpdateRequestAssetGroupClass,
     "PluginClonePropertyRequest": PluginClonePropertyRequest,
+    "ProductClonePropertyRequest": ProductClonePropertyRequest,
     "ProductCloneRequest": ProductCloneRequest,
     "ProductConditionalIcon": ProductConditionalIcon,
-    "ProductConditionalIconConditionsInner": ProductConditionalIconConditionsInner,
+    "ProductConditionalIconConditionsInner": ProductConditionalIconConditionsInnerClass,
+    "ProductConditionalIconConditionsInnerOneOf": ProductConditionalIconConditionsInnerOneOf,
+    "ProductConditionalIconConditionsInnerOneOf1": ProductConditionalIconConditionsInnerOneOf1,
     "ProductConfig": ProductConfig,
     "ProductCreateFirmwareRequest": ProductCreateFirmwareRequest,
     "ProductCreateRequest": ProductCreateRequest,
@@ -85,6 +99,7 @@ let typeMap: {[index: string]: any} = {
     "Property": Property,
     "PropertyCreate": PropertyCreate,
     "PropertyForm": PropertyForm,
+    "PropertyPerm": PropertyPerm,
     "PropertyUpdate": PropertyUpdate,
 }
 

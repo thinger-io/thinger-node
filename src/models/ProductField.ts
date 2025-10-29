@@ -20,7 +20,7 @@ export class ProductField {
     'icon'?: ProductIcon;
     'name': string;
     'primary'?: boolean;
-    'type'?: string;
+    'type'?: ProductFieldTypeEnum;
     'value': string;
 
     static readonly discriminator: string | undefined = undefined;
@@ -49,7 +49,7 @@ export class ProductField {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "ProductFieldTypeEnum",
             "format": ""
         },
         {
@@ -66,3 +66,13 @@ export class ProductField {
     public constructor() {
     }
 }
+
+export enum ProductFieldTypeEnum {
+    String = 'string',
+    Number = 'number',
+    Date = 'date',
+    Time = 'time',
+    Datetime = 'datetime',
+    Timeago = 'timeago'
+}
+

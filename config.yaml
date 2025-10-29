@@ -8,7 +8,7 @@ additionalProperties:
   disallowAdditionalPropertiesIfNotPresent: false
   licenseName: "MIT"
   npmName: "@thinger-io/thinger-node"
-  npmVersion: "0.1.0"
+  npmVersion: "0.1.1"
   platform: "node"
   supportsES6: true
   useObjectParameters: false

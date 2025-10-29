@@ -10,52 +10,24 @@
  * Do not edit the class manually.
  */
 
-import { ComparisonExpressions } from '../models/ComparisonExpressions.js';
-import { OperatorExpressions } from '../models/OperatorExpressions.js';
+import { ProductConditionalIconConditionsInnerOneOf } from '../models/ProductConditionalIconConditionsInnerOneOf.js';
+import { ProductConditionalIconConditionsInnerOneOf1 } from '../models/ProductConditionalIconConditionsInnerOneOf1.js';
 import { HttpFile } from '../http/http.js';
 
-export class ProductConditionalIconConditionsInner {
-    'comparison': ComparisonExpressions;
-    'field': string;
-    'operator': OperatorExpressions;
-    'value': string;
+/**
+ * @type ProductConditionalIconConditionsInner
+ * Type
+ * @export
+ */
+export type ProductConditionalIconConditionsInner = ProductConditionalIconConditionsInnerOneOf | ProductConditionalIconConditionsInnerOneOf1;
 
+/**
+* @type ProductConditionalIconConditionsInnerClass
+* @export
+*/
+export class ProductConditionalIconConditionsInnerClass {
     static readonly discriminator: string | undefined = undefined;
 
     static readonly mapping: {[index: string]: string} | undefined = undefined;
-
-    static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
-        {
-            "name": "comparison",
-            "baseName": "comparison",
-            "type": "ComparisonExpressions",
-            "format": ""
-        },
-        {
-            "name": "field",
-            "baseName": "field",
-            "type": "string",
-            "format": ""
-        },
-        {
-            "name": "operator",
-            "baseName": "operator",
-            "type": "OperatorExpressions",
-            "format": ""
-        },
-        {
-            "name": "value",
-            "baseName": "value",
-            "type": "string",
-            "format": ""
-        }    ];
-
-    static getAttributeTypeMap() {
-        return ProductConditionalIconConditionsInner.attributeTypeMap;
-    }
-
-    public constructor() {
-    }
 }
-
 

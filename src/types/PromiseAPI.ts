@@ -10,9 +10,12 @@ import { DeviceUpdateRequest } from '../models/DeviceUpdateRequest.js';
 import { DeviceUpdateRequestAssetGroup } from '../models/DeviceUpdateRequestAssetGroup.js';
 import { OperatorExpressions } from '../models/OperatorExpressions.js';
 import { PluginClonePropertyRequest } from '../models/PluginClonePropertyRequest.js';
+import { ProductClonePropertyRequest } from '../models/ProductClonePropertyRequest.js';
 import { ProductCloneRequest } from '../models/ProductCloneRequest.js';
 import { ProductConditionalIcon } from '../models/ProductConditionalIcon.js';
 import { ProductConditionalIconConditionsInner } from '../models/ProductConditionalIconConditionsInner.js';
+import { ProductConditionalIconConditionsInnerOneOf } from '../models/ProductConditionalIconConditionsInnerOneOf.js';
+import { ProductConditionalIconConditionsInnerOneOf1 } from '../models/ProductConditionalIconConditionsInnerOneOf1.js';
 import { ProductConfig } from '../models/ProductConfig.js';
 import { ProductCreateFirmwareRequest } from '../models/ProductCreateFirmwareRequest.js';
 import { ProductCreateRequest } from '../models/ProductCreateRequest.js';
@@ -22,6 +25,7 @@ import { ProductUpdateRequest } from '../models/ProductUpdateRequest.js';
 import { Property } from '../models/Property.js';
 import { PropertyCreate } from '../models/PropertyCreate.js';
 import { PropertyForm } from '../models/PropertyForm.js';
+import { PropertyPerm } from '../models/PropertyPerm.js';
 import { PropertyUpdate } from '../models/PropertyUpdate.js';
 import { ObservableDevicesApi } from './ObservableAPI.js';
 
@@ -80,6 +84,28 @@ export class PromiseDevicesApi {
      */
     public accessOutputResources(user: string, device: string, resource: string, _options?: Configuration): Promise<any> {
         const result = this.api.accessOutputResources(user, device, resource, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * AccessDeviceRemoteDesktop
+     * @param user
+     * @param device
+     * @param service
+     */
+    public accessRemoteDesktopVncWithHttpInfo(user: string, device: string, service: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.accessRemoteDesktopVncWithHttpInfo(user, device, service, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * AccessDeviceRemoteDesktop
+     * @param user
+     * @param device
+     * @param service
+     */
+    public accessRemoteDesktopVnc(user: string, device: string, service: string, _options?: Configuration): Promise<any> {
+        const result = this.api.accessRemoteDesktopVnc(user, device, service, _options);
         return result.toPromise();
     }
 
@@ -170,14 +196,22 @@ export class PromiseDevicesApi {
     }
 
     /**
-     * CloneDeviceProperty
+     * CloneDeviceConfig
      * @param user
      * @param device
-     * @param property
-     * @param pluginClonePropertyRequest
      */
-    public clonePropertyWithHttpInfo(user: string, device: string, property: string, pluginClonePropertyRequest: PluginClonePropertyRequest, _options?: Configuration): Promise<HttpInfo<any>> {
-        const result = this.api.clonePropertyWithHttpInfo(user, device, property, pluginClonePropertyRequest, _options);
+    public cloneConfigWithHttpInfo(user: string, device: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.cloneConfigWithHttpInfo(user, device, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * CloneDeviceConfig
+     * @param user
+     * @param device
+     */
+    public cloneConfig(user: string, device: string, _options?: Configuration): Promise<any> {
+        const result = this.api.cloneConfig(user, device, _options);
         return result.toPromise();
     }
 
@@ -186,10 +220,44 @@ export class PromiseDevicesApi {
      * @param user
      * @param device
      * @param property
-     * @param pluginClonePropertyRequest
+     * @param productClonePropertyRequest
      */
-    public cloneProperty(user: string, device: string, property: string, pluginClonePropertyRequest: PluginClonePropertyRequest, _options?: Configuration): Promise<any> {
-        const result = this.api.cloneProperty(user, device, property, pluginClonePropertyRequest, _options);
+    public clonePropertyWithHttpInfo(user: string, device: string, property: string, productClonePropertyRequest: ProductClonePropertyRequest, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.clonePropertyWithHttpInfo(user, device, property, productClonePropertyRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * CloneDeviceProperty
+     * @param user
+     * @param device
+     * @param property
+     * @param productClonePropertyRequest
+     */
+    public cloneProperty(user: string, device: string, property: string, productClonePropertyRequest: ProductClonePropertyRequest, _options?: Configuration): Promise<any> {
+        const result = this.api.cloneProperty(user, device, property, productClonePropertyRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * CloneDevicePropertyConfig
+     * @param user
+     * @param device
+     * @param property
+     */
+    public clonePropertyConfigWithHttpInfo(user: string, device: string, property: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.clonePropertyConfigWithHttpInfo(user, device, property, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * CloneDevicePropertyConfig
+     * @param user
+     * @param device
+     * @param property
+     */
+    public clonePropertyConfig(user: string, device: string, property: string, _options?: Configuration): Promise<any> {
+        const result = this.api.clonePropertyConfig(user, device, property, _options);
         return result.toPromise();
     }
 
@@ -568,6 +636,28 @@ export class PromiseDevicesApi {
      */
     public readProperty(user: string, device: string, property: string, _options?: Configuration): Promise<any> {
         const result = this.api.readProperty(user, device, property, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * ReadDeviceService
+     * @param user
+     * @param device
+     * @param service
+     */
+    public readServiceWithHttpInfo(user: string, device: string, service: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.readServiceWithHttpInfo(user, device, service, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * ReadDeviceService
+     * @param user
+     * @param device
+     * @param service
+     */
+    public readService(user: string, device: string, service: string, _options?: Configuration): Promise<any> {
+        const result = this.api.readService(user, device, service, _options);
         return result.toPromise();
     }
 
@@ -1057,6 +1147,28 @@ export class PromisePluginsApi {
     }
 
     /**
+     * ClonePluginPropertyConfig
+     * @param user
+     * @param plugin
+     * @param property
+     */
+    public clonePropertyConfigWithHttpInfo(user: string, plugin: string, property: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.clonePropertyConfigWithHttpInfo(user, plugin, property, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * ClonePluginPropertyConfig
+     * @param user
+     * @param plugin
+     * @param property
+     */
+    public clonePropertyConfig(user: string, plugin: string, property: string, _options?: Configuration): Promise<any> {
+        const result = this.api.clonePropertyConfig(user, plugin, property, _options);
+        return result.toPromise();
+    }
+
+    /**
      * CreatePluginProperty
      * @param user
      * @param plugin
@@ -1350,6 +1462,30 @@ export class PromiseProductsApi {
     }
 
     /**
+     * AccessProductResources
+     * @param user
+     * @param product
+     * @param resource
+     * @param body
+     */
+    public accessResourcesWithHttpInfo(user: string, product: string, resource: string, body: any, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.accessResourcesWithHttpInfo(user, product, resource, body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * AccessProductResources
+     * @param user
+     * @param product
+     * @param resource
+     * @param body
+     */
+    public accessResources(user: string, product: string, resource: string, body: any, _options?: Configuration): Promise<any> {
+        const result = this.api.accessResources(user, product, resource, body, _options);
+        return result.toPromise();
+    }
+
+    /**
      * CloneProduct
      * @param user
      * @param product
@@ -1372,14 +1508,22 @@ export class PromiseProductsApi {
     }
 
     /**
-     * CloneProductProperty
+     * CloneProductConfig
      * @param user
      * @param product
-     * @param property
-     * @param pluginClonePropertyRequest
      */
-    public clonePropertyWithHttpInfo(user: string, product: string, property: string, pluginClonePropertyRequest: PluginClonePropertyRequest, _options?: Configuration): Promise<HttpInfo<any>> {
-        const result = this.api.clonePropertyWithHttpInfo(user, product, property, pluginClonePropertyRequest, _options);
+    public cloneConfigWithHttpInfo(user: string, product: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.cloneConfigWithHttpInfo(user, product, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * CloneProductConfig
+     * @param user
+     * @param product
+     */
+    public cloneConfig(user: string, product: string, _options?: Configuration): Promise<any> {
+        const result = this.api.cloneConfig(user, product, _options);
         return result.toPromise();
     }
 
@@ -1388,10 +1532,44 @@ export class PromiseProductsApi {
      * @param user
      * @param product
      * @param property
-     * @param pluginClonePropertyRequest
+     * @param productClonePropertyRequest
      */
-    public cloneProperty(user: string, product: string, property: string, pluginClonePropertyRequest: PluginClonePropertyRequest, _options?: Configuration): Promise<any> {
-        const result = this.api.cloneProperty(user, product, property, pluginClonePropertyRequest, _options);
+    public clonePropertyWithHttpInfo(user: string, product: string, property: string, productClonePropertyRequest: ProductClonePropertyRequest, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.clonePropertyWithHttpInfo(user, product, property, productClonePropertyRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * CloneProductProperty
+     * @param user
+     * @param product
+     * @param property
+     * @param productClonePropertyRequest
+     */
+    public cloneProperty(user: string, product: string, property: string, productClonePropertyRequest: ProductClonePropertyRequest, _options?: Configuration): Promise<any> {
+        const result = this.api.cloneProperty(user, product, property, productClonePropertyRequest, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * CloneProductPropertyConfig
+     * @param user
+     * @param product
+     * @param property
+     */
+    public clonePropertyConfigWithHttpInfo(user: string, product: string, property: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.clonePropertyConfigWithHttpInfo(user, product, property, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * CloneProductPropertyConfig
+     * @param user
+     * @param product
+     * @param property
+     */
+    public clonePropertyConfig(user: string, product: string, property: string, _options?: Configuration): Promise<any> {
+        const result = this.api.clonePropertyConfig(user, product, property, _options);
         return result.toPromise();
     }
 
@@ -1484,6 +1662,30 @@ export class PromiseProductsApi {
     }
 
     /**
+     * UpdateProductProfile
+     * @param user
+     * @param product
+     * @param category
+     * @param resource
+     */
+    public deleteProductProfileResourceWithHttpInfo(user: string, product: string, category: string, resource: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.deleteProductProfileResourceWithHttpInfo(user, product, category, resource, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * UpdateProductProfile
+     * @param user
+     * @param product
+     * @param category
+     * @param resource
+     */
+    public deleteProductProfileResource(user: string, product: string, category: string, resource: string, _options?: Configuration): Promise<any> {
+        const result = this.api.deleteProductProfileResource(user, product, category, resource, _options);
+        return result.toPromise();
+    }
+
+    /**
      * DeleteProductProperty
      * @param user
      * @param product
@@ -1502,6 +1704,28 @@ export class PromiseProductsApi {
      */
     public deleteProperty(user: string, product: string, property: string, _options?: Configuration): Promise<any> {
         const result = this.api.deleteProperty(user, product, property, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * DeleteProductServices
+     * @param user
+     * @param product
+     * @param service
+     */
+    public deleteServicesWithHttpInfo(user: string, product: string, service: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.deleteServicesWithHttpInfo(user, product, service, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * DeleteProductServices
+     * @param user
+     * @param product
+     * @param service
+     */
+    public deleteServices(user: string, product: string, service: string, _options?: Configuration): Promise<any> {
+        const result = this.api.deleteServices(user, product, service, _options);
         return result.toPromise();
     }
 
@@ -1677,10 +1901,11 @@ export class PromiseProductsApi {
      * ReadProductProfile
      * @param user
      * @param product
+     * @param category
      * @param resource
      */
-    public readProfileWithHttpInfo(user: string, product: string, resource: string, _options?: Configuration): Promise<HttpInfo<any>> {
-        const result = this.api.readProfileWithHttpInfo(user, product, resource, _options);
+    public readProductProfileResourceWithHttpInfo(user: string, product: string, category: string, resource: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.readProductProfileResourceWithHttpInfo(user, product, category, resource, _options);
         return result.toPromise();
     }
 
@@ -1688,10 +1913,33 @@ export class PromiseProductsApi {
      * ReadProductProfile
      * @param user
      * @param product
+     * @param category
      * @param resource
      */
-    public readProfile(user: string, product: string, resource: string, _options?: Configuration): Promise<any> {
-        const result = this.api.readProfile(user, product, resource, _options);
+    public readProductProfileResource(user: string, product: string, category: string, resource: string, _options?: Configuration): Promise<any> {
+        const result = this.api.readProductProfileResource(user, product, category, resource, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * ReadProductProfile
+     * @param user
+     * @param product
+     * @param category
+     */
+    public readProfileWithHttpInfo(user: string, product: string, category: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.readProfileWithHttpInfo(user, product, category, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * ReadProductProfile
+     * @param user
+     * @param product
+     * @param category
+     */
+    public readProfile(user: string, product: string, category: string, _options?: Configuration): Promise<any> {
+        const result = this.api.readProfile(user, product, category, _options);
         return result.toPromise();
     }
 
@@ -1721,10 +1969,9 @@ export class PromiseProductsApi {
      * ReadProductServices
      * @param user
      * @param product
-     * @param resource
      */
-    public readServicesWithHttpInfo(user: string, product: string, resource: string, _options?: Configuration): Promise<HttpInfo<any>> {
-        const result = this.api.readServicesWithHttpInfo(user, product, resource, _options);
+    public readServicesWithHttpInfo(user: string, product: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.readServicesWithHttpInfo(user, product, _options);
         return result.toPromise();
     }
 
@@ -1732,10 +1979,31 @@ export class PromiseProductsApi {
      * ReadProductServices
      * @param user
      * @param product
-     * @param resource
      */
-    public readServices(user: string, product: string, resource: string, _options?: Configuration): Promise<any> {
-        const result = this.api.readServices(user, product, resource, _options);
+    public readServices(user: string, product: string, _options?: Configuration): Promise<any> {
+        const result = this.api.readServices(user, product, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * ReadProductServices
+     * @param user
+     * @param product
+     * @param service
+     */
+    public readServices_1WithHttpInfo(user: string, product: string, service: string, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.readServices_1WithHttpInfo(user, product, service, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * ReadProductServices
+     * @param user
+     * @param product
+     * @param service
+     */
+    public readServices_1(user: string, product: string, service: string, _options?: Configuration): Promise<any> {
+        const result = this.api.readServices_1(user, product, service, _options);
         return result.toPromise();
     }
 
@@ -1859,11 +2127,12 @@ export class PromiseProductsApi {
      * UpdateProductProfile
      * @param user
      * @param product
+     * @param category
      * @param resource
      * @param body
      */
-    public updateProfileWithHttpInfo(user: string, product: string, resource: string, body: any, _options?: Configuration): Promise<HttpInfo<any>> {
-        const result = this.api.updateProfileWithHttpInfo(user, product, resource, body, _options);
+    public updateProductProfileResourceWithHttpInfo(user: string, product: string, category: string, resource: string, body: any, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.updateProductProfileResourceWithHttpInfo(user, product, category, resource, body, _options);
         return result.toPromise();
     }
 
@@ -1871,11 +2140,36 @@ export class PromiseProductsApi {
      * UpdateProductProfile
      * @param user
      * @param product
+     * @param category
      * @param resource
      * @param body
      */
-    public updateProfile(user: string, product: string, resource: string, body: any, _options?: Configuration): Promise<any> {
-        const result = this.api.updateProfile(user, product, resource, body, _options);
+    public updateProductProfileResource(user: string, product: string, category: string, resource: string, body: any, _options?: Configuration): Promise<any> {
+        const result = this.api.updateProductProfileResource(user, product, category, resource, body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * UpdateProductProfile
+     * @param user
+     * @param product
+     * @param category
+     * @param body
+     */
+    public updateProfileWithHttpInfo(user: string, product: string, category: string, body: any, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.updateProfileWithHttpInfo(user, product, category, body, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * UpdateProductProfile
+     * @param user
+     * @param product
+     * @param category
+     * @param body
+     */
+    public updateProfile(user: string, product: string, category: string, body: any, _options?: Configuration): Promise<any> {
+        const result = this.api.updateProfile(user, product, category, body, _options);
         return result.toPromise();
     }
 
@@ -1951,11 +2245,11 @@ export class PromiseProductsApi {
      * UpdateProductServices
      * @param user
      * @param product
-     * @param resource
+     * @param service
      * @param body
      */
-    public updateServicesWithHttpInfo(user: string, product: string, resource: string, body: any, _options?: Configuration): Promise<HttpInfo<any>> {
-        const result = this.api.updateServicesWithHttpInfo(user, product, resource, body, _options);
+    public updateServicesWithHttpInfo(user: string, product: string, service: string, body: any, _options?: Configuration): Promise<HttpInfo<any>> {
+        const result = this.api.updateServicesWithHttpInfo(user, product, service, body, _options);
         return result.toPromise();
     }
 
@@ -1963,11 +2257,11 @@ export class PromiseProductsApi {
      * UpdateProductServices
      * @param user
      * @param product
-     * @param resource
+     * @param service
      * @param body
      */
-    public updateServices(user: string, product: string, resource: string, body: any, _options?: Configuration): Promise<any> {
-        const result = this.api.updateServices(user, product, resource, body, _options);
+    public updateServices(user: string, product: string, service: string, body: any, _options?: Configuration): Promise<any> {
+        const result = this.api.updateServices(user, product, service, body, _options);
         return result.toPromise();
     }
 

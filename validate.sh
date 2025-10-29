@@ -2,7 +2,7 @@
 
 # Get the OpenAPI specification
 curl -X 'GET' \
-  'http://localhost/openapi.json' \
+  'https://perf.aws.thinger.io/openapi.json' \
   -H 'accept: application/json' \
   -o openapi.json
 

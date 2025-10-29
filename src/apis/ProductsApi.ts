@@ -10,7 +10,7 @@ import {canConsumeForm, isCodeInRange} from '../util.js';
 import {SecurityAuthentication} from '../auth/auth.js';
 
 
-import { PluginClonePropertyRequest } from '../models/PluginClonePropertyRequest.js';
+import { ProductClonePropertyRequest } from '../models/ProductClonePropertyRequest.js';
 import { ProductCloneRequest } from '../models/ProductCloneRequest.js';
 import { ProductCreateFirmwareRequest } from '../models/ProductCreateFirmwareRequest.js';
 import { ProductCreateRequest } from '../models/ProductCreateRequest.js';
@@ -22,6 +22,82 @@ import { PropertyUpdate } from '../models/PropertyUpdate.js';
  * no description
  */
 export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
+
+    /**
+     * AccessProductResources
+     * @param user 
+     * @param product 
+     * @param resource 
+     * @param body 
+     */
+    public async accessResources(user: string, product: string, resource: string, body: any, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'user' is not null or undefined
+        if (user === null || user === undefined) {
+            throw new RequiredError("ProductsApi", "accessResources", "user");
+        }
+
+
+        // verify required parameter 'product' is not null or undefined
+        if (product === null || product === undefined) {
+            throw new RequiredError("ProductsApi", "accessResources", "product");
+        }
+
+
+        // verify required parameter 'resource' is not null or undefined
+        if (resource === null || resource === undefined) {
+            throw new RequiredError("ProductsApi", "accessResources", "resource");
+        }
+
+
+        // verify required parameter 'body' is not null or undefined
+        if (body === null || body === undefined) {
+            throw new RequiredError("ProductsApi", "accessResources", "body");
+        }
+
+
+        // Path Params
+        const localVarPath = '/v1/users/{user}/products/{product}/resources/{resource}'
+            .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
+            .replace('{' + 'product' + '}', encodeURIComponent(String(product)))
+            .replace('{' + 'resource' + '}', encodeURIComponent(String(resource)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(body, "any", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["oauth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
 
     /**
      * CloneProduct
@@ -92,13 +168,63 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * CloneProductConfig
+     * @param user 
+     * @param product 
+     */
+    public async cloneConfig(user: string, product: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'user' is not null or undefined
+        if (user === null || user === undefined) {
+            throw new RequiredError("ProductsApi", "cloneConfig", "user");
+        }
+
+
+        // verify required parameter 'product' is not null or undefined
+        if (product === null || product === undefined) {
+            throw new RequiredError("ProductsApi", "cloneConfig", "product");
+        }
+
+
+        // Path Params
+        const localVarPath = '/v1/users/{user}/products/{product}/clone'
+            .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
+            .replace('{' + 'product' + '}', encodeURIComponent(String(product)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["oauth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      * CloneProductProperty
      * @param user 
      * @param product 
      * @param property 
-     * @param pluginClonePropertyRequest 
+     * @param productClonePropertyRequest 
      */
-    public async cloneProperty(user: string, product: string, property: string, pluginClonePropertyRequest: PluginClonePropertyRequest, _options?: Configuration): Promise<RequestContext> {
+    public async cloneProperty(user: string, product: string, property: string, productClonePropertyRequest: ProductClonePropertyRequest, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'user' is not null or undefined
@@ -119,9 +245,9 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'pluginClonePropertyRequest' is not null or undefined
-        if (pluginClonePropertyRequest === null || pluginClonePropertyRequest === undefined) {
-            throw new RequiredError("ProductsApi", "cloneProperty", "pluginClonePropertyRequest");
+        // verify required parameter 'productClonePropertyRequest' is not null or undefined
+        if (productClonePropertyRequest === null || productClonePropertyRequest === undefined) {
+            throw new RequiredError("ProductsApi", "cloneProperty", "productClonePropertyRequest");
         }
 
 
@@ -142,10 +268,68 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(pluginClonePropertyRequest, "PluginClonePropertyRequest", ""),
+            ObjectSerializer.serialize(productClonePropertyRequest, "ProductClonePropertyRequest", ""),
             contentType
         );
         requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["oauth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * CloneProductPropertyConfig
+     * @param user 
+     * @param product 
+     * @param property 
+     */
+    public async clonePropertyConfig(user: string, product: string, property: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'user' is not null or undefined
+        if (user === null || user === undefined) {
+            throw new RequiredError("ProductsApi", "clonePropertyConfig", "user");
+        }
+
+
+        // verify required parameter 'product' is not null or undefined
+        if (product === null || product === undefined) {
+            throw new RequiredError("ProductsApi", "clonePropertyConfig", "product");
+        }
+
+
+        // verify required parameter 'property' is not null or undefined
+        if (property === null || property === undefined) {
+            throw new RequiredError("ProductsApi", "clonePropertyConfig", "property");
+        }
+
+
+        // Path Params
+        const localVarPath = '/v1/users/{user}/products/{product}/properties/{property}/clone'
+            .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
+            .replace('{' + 'product' + '}', encodeURIComponent(String(product)))
+            .replace('{' + 'property' + '}', encodeURIComponent(String(property)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
@@ -430,6 +614,72 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * UpdateProductProfile
+     * @param user 
+     * @param product 
+     * @param category 
+     * @param resource 
+     */
+    public async deleteProductProfileResource(user: string, product: string, category: string, resource: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'user' is not null or undefined
+        if (user === null || user === undefined) {
+            throw new RequiredError("ProductsApi", "deleteProductProfileResource", "user");
+        }
+
+
+        // verify required parameter 'product' is not null or undefined
+        if (product === null || product === undefined) {
+            throw new RequiredError("ProductsApi", "deleteProductProfileResource", "product");
+        }
+
+
+        // verify required parameter 'category' is not null or undefined
+        if (category === null || category === undefined) {
+            throw new RequiredError("ProductsApi", "deleteProductProfileResource", "category");
+        }
+
+
+        // verify required parameter 'resource' is not null or undefined
+        if (resource === null || resource === undefined) {
+            throw new RequiredError("ProductsApi", "deleteProductProfileResource", "resource");
+        }
+
+
+        // Path Params
+        const localVarPath = '/v1/users/{user}/products/{product}/profile/{category}/{resource}'
+            .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
+            .replace('{' + 'product' + '}', encodeURIComponent(String(product)))
+            .replace('{' + 'category' + '}', encodeURIComponent(String(category)))
+            .replace('{' + 'resource' + '}', encodeURIComponent(String(resource)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.DELETE);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["oauth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      * DeleteProductProperty
      * @param user 
      * @param product 
@@ -461,6 +711,64 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
             .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
             .replace('{' + 'product' + '}', encodeURIComponent(String(product)))
             .replace('{' + 'property' + '}', encodeURIComponent(String(property)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.DELETE);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["oauth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * DeleteProductServices
+     * @param user 
+     * @param product 
+     * @param service 
+     */
+    public async deleteServices(user: string, product: string, service: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'user' is not null or undefined
+        if (user === null || user === undefined) {
+            throw new RequiredError("ProductsApi", "deleteServices", "user");
+        }
+
+
+        // verify required parameter 'product' is not null or undefined
+        if (product === null || product === undefined) {
+            throw new RequiredError("ProductsApi", "deleteServices", "product");
+        }
+
+
+        // verify required parameter 'service' is not null or undefined
+        if (service === null || service === undefined) {
+            throw new RequiredError("ProductsApi", "deleteServices", "service");
+        }
+
+
+        // Path Params
+        const localVarPath = '/v1/users/{user}/products/{product}/services/{service}'
+            .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
+            .replace('{' + 'product' + '}', encodeURIComponent(String(product)))
+            .replace('{' + 'service' + '}', encodeURIComponent(String(service)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.DELETE);
@@ -923,9 +1231,75 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
      * ReadProductProfile
      * @param user 
      * @param product 
+     * @param category 
      * @param resource 
      */
-    public async readProfile(user: string, product: string, resource: string, _options?: Configuration): Promise<RequestContext> {
+    public async readProductProfileResource(user: string, product: string, category: string, resource: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'user' is not null or undefined
+        if (user === null || user === undefined) {
+            throw new RequiredError("ProductsApi", "readProductProfileResource", "user");
+        }
+
+
+        // verify required parameter 'product' is not null or undefined
+        if (product === null || product === undefined) {
+            throw new RequiredError("ProductsApi", "readProductProfileResource", "product");
+        }
+
+
+        // verify required parameter 'category' is not null or undefined
+        if (category === null || category === undefined) {
+            throw new RequiredError("ProductsApi", "readProductProfileResource", "category");
+        }
+
+
+        // verify required parameter 'resource' is not null or undefined
+        if (resource === null || resource === undefined) {
+            throw new RequiredError("ProductsApi", "readProductProfileResource", "resource");
+        }
+
+
+        // Path Params
+        const localVarPath = '/v1/users/{user}/products/{product}/profile/{category}/{resource}'
+            .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
+            .replace('{' + 'product' + '}', encodeURIComponent(String(product)))
+            .replace('{' + 'category' + '}', encodeURIComponent(String(category)))
+            .replace('{' + 'resource' + '}', encodeURIComponent(String(resource)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["oauth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * ReadProductProfile
+     * @param user 
+     * @param product 
+     * @param category 
+     */
+    public async readProfile(user: string, product: string, category: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'user' is not null or undefined
@@ -940,17 +1314,17 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'resource' is not null or undefined
-        if (resource === null || resource === undefined) {
-            throw new RequiredError("ProductsApi", "readProfile", "resource");
+        // verify required parameter 'category' is not null or undefined
+        if (category === null || category === undefined) {
+            throw new RequiredError("ProductsApi", "readProfile", "category");
         }
 
 
         // Path Params
-        const localVarPath = '/v1/users/{user}/products/{product}/profile/{resource}'
+        const localVarPath = '/v1/users/{user}/products/{product}/profile/{category}'
             .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
             .replace('{' + 'product' + '}', encodeURIComponent(String(product)))
-            .replace('{' + 'resource' + '}', encodeURIComponent(String(resource)));
+            .replace('{' + 'category' + '}', encodeURIComponent(String(category)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -1039,9 +1413,8 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
      * ReadProductServices
      * @param user 
      * @param product 
-     * @param resource 
      */
-    public async readServices(user: string, product: string, resource: string, _options?: Configuration): Promise<RequestContext> {
+    public async readServices(user: string, product: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'user' is not null or undefined
@@ -1056,17 +1429,68 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'resource' is not null or undefined
-        if (resource === null || resource === undefined) {
-            throw new RequiredError("ProductsApi", "readServices", "resource");
+        // Path Params
+        const localVarPath = '/v1/users/{user}/products/{product}/services'
+            .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
+            .replace('{' + 'product' + '}', encodeURIComponent(String(product)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["oauth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * ReadProductServices
+     * @param user 
+     * @param product 
+     * @param service 
+     */
+    public async readServices_1(user: string, product: string, service: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'user' is not null or undefined
+        if (user === null || user === undefined) {
+            throw new RequiredError("ProductsApi", "readServices_1", "user");
+        }
+
+
+        // verify required parameter 'product' is not null or undefined
+        if (product === null || product === undefined) {
+            throw new RequiredError("ProductsApi", "readServices_1", "product");
+        }
+
+
+        // verify required parameter 'service' is not null or undefined
+        if (service === null || service === undefined) {
+            throw new RequiredError("ProductsApi", "readServices_1", "service");
         }
 
 
         // Path Params
-        const localVarPath = '/v1/users/{user}/products/{product}/services/{resource}'
+        const localVarPath = '/v1/users/{user}/products/{product}/services/{service}'
             .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
             .replace('{' + 'product' + '}', encodeURIComponent(String(product)))
-            .replace('{' + 'resource' + '}', encodeURIComponent(String(resource)));
+            .replace('{' + 'service' + '}', encodeURIComponent(String(service)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
@@ -1431,10 +1855,94 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
      * UpdateProductProfile
      * @param user 
      * @param product 
+     * @param category 
      * @param resource 
      * @param body 
      */
-    public async updateProfile(user: string, product: string, resource: string, body: any, _options?: Configuration): Promise<RequestContext> {
+    public async updateProductProfileResource(user: string, product: string, category: string, resource: string, body: any, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'user' is not null or undefined
+        if (user === null || user === undefined) {
+            throw new RequiredError("ProductsApi", "updateProductProfileResource", "user");
+        }
+
+
+        // verify required parameter 'product' is not null or undefined
+        if (product === null || product === undefined) {
+            throw new RequiredError("ProductsApi", "updateProductProfileResource", "product");
+        }
+
+
+        // verify required parameter 'category' is not null or undefined
+        if (category === null || category === undefined) {
+            throw new RequiredError("ProductsApi", "updateProductProfileResource", "category");
+        }
+
+
+        // verify required parameter 'resource' is not null or undefined
+        if (resource === null || resource === undefined) {
+            throw new RequiredError("ProductsApi", "updateProductProfileResource", "resource");
+        }
+
+
+        // verify required parameter 'body' is not null or undefined
+        if (body === null || body === undefined) {
+            throw new RequiredError("ProductsApi", "updateProductProfileResource", "body");
+        }
+
+
+        // Path Params
+        const localVarPath = '/v1/users/{user}/products/{product}/profile/{category}/{resource}'
+            .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
+            .replace('{' + 'product' + '}', encodeURIComponent(String(product)))
+            .replace('{' + 'category' + '}', encodeURIComponent(String(category)))
+            .replace('{' + 'resource' + '}', encodeURIComponent(String(resource)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.PUT);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(body, "any", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["oauth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * UpdateProductProfile
+     * @param user 
+     * @param product 
+     * @param category 
+     * @param body 
+     */
+    public async updateProfile(user: string, product: string, category: string, body: any, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'user' is not null or undefined
@@ -1449,9 +1957,9 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'resource' is not null or undefined
-        if (resource === null || resource === undefined) {
-            throw new RequiredError("ProductsApi", "updateProfile", "resource");
+        // verify required parameter 'category' is not null or undefined
+        if (category === null || category === undefined) {
+            throw new RequiredError("ProductsApi", "updateProfile", "category");
         }
 
 
@@ -1462,10 +1970,10 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
 
 
         // Path Params
-        const localVarPath = '/v1/users/{user}/products/{product}/profile/{resource}'
+        const localVarPath = '/v1/users/{user}/products/{product}/profile/{category}'
             .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
             .replace('{' + 'product' + '}', encodeURIComponent(String(product)))
-            .replace('{' + 'resource' + '}', encodeURIComponent(String(resource)));
+            .replace('{' + 'category' + '}', encodeURIComponent(String(category)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.PUT);
@@ -1719,10 +2227,10 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
      * UpdateProductServices
      * @param user 
      * @param product 
-     * @param resource 
+     * @param service 
      * @param body 
      */
-    public async updateServices(user: string, product: string, resource: string, body: any, _options?: Configuration): Promise<RequestContext> {
+    public async updateServices(user: string, product: string, service: string, body: any, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'user' is not null or undefined
@@ -1737,9 +2245,9 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'resource' is not null or undefined
-        if (resource === null || resource === undefined) {
-            throw new RequiredError("ProductsApi", "updateServices", "resource");
+        // verify required parameter 'service' is not null or undefined
+        if (service === null || service === undefined) {
+            throw new RequiredError("ProductsApi", "updateServices", "service");
         }
 
 
@@ -1750,10 +2258,10 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
 
 
         // Path Params
-        const localVarPath = '/v1/users/{user}/products/{product}/services/{resource}'
+        const localVarPath = '/v1/users/{user}/products/{product}/services/{service}'
             .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
             .replace('{' + 'product' + '}', encodeURIComponent(String(product)))
-            .replace('{' + 'resource' + '}', encodeURIComponent(String(resource)));
+            .replace('{' + 'service' + '}', encodeURIComponent(String(service)));
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.PUT);
@@ -1794,6 +2302,65 @@ export class ProductsApiRequestFactory extends BaseAPIRequestFactory {
 }
 
 export class ProductsApiResponseProcessor {
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to accessResources
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async accessResourcesWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
+        const contentLength = response.headers["content-length"];
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+                if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                    return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+                }
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "unauthorized", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "forbidden", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing error responses in thinger openapi specification
+        if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
+            if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                throw new ApiException<undefined>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], undefined, response.headers);
+            }
+            const body : any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
 
     /**
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
@@ -1858,10 +2425,128 @@ export class ProductsApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
+     * @params response Response returned by the server for a request to cloneConfig
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async cloneConfigWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
+        const contentLength = response.headers["content-length"];
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+                if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                    return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+                }
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "unauthorized", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "forbidden", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing error responses in thinger openapi specification
+        if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
+            if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                throw new ApiException<undefined>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], undefined, response.headers);
+            }
+            const body : any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
      * @params response Response returned by the server for a request to cloneProperty
      * @throws ApiException if the response code was not in [200, 299]
      */
      public async clonePropertyWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
+        const contentLength = response.headers["content-length"];
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+                if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                    return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+                }
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "unauthorized", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "forbidden", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing error responses in thinger openapi specification
+        if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
+            if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                throw new ApiException<undefined>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], undefined, response.headers);
+            }
+            const body : any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to clonePropertyConfig
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async clonePropertyConfigWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
         const contentLength = response.headers["content-length"];
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
@@ -2153,10 +2838,128 @@ export class ProductsApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
+     * @params response Response returned by the server for a request to deleteProductProfileResource
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async deleteProductProfileResourceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
+        const contentLength = response.headers["content-length"];
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+                if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                    return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+                }
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "unauthorized", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "forbidden", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing error responses in thinger openapi specification
+        if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
+            if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                throw new ApiException<undefined>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], undefined, response.headers);
+            }
+            const body : any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
      * @params response Response returned by the server for a request to deleteProperty
      * @throws ApiException if the response code was not in [200, 299]
      */
      public async deletePropertyWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
+        const contentLength = response.headers["content-length"];
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+                if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                    return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+                }
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "unauthorized", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "forbidden", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing error responses in thinger openapi specification
+        if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
+            if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                throw new ApiException<undefined>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], undefined, response.headers);
+            }
+            const body : any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to deleteServices
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async deleteServicesWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
         const contentLength = response.headers["content-length"];
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
@@ -2684,6 +3487,65 @@ export class ProductsApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
+     * @params response Response returned by the server for a request to readProductProfileResource
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async readProductProfileResourceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
+        const contentLength = response.headers["content-length"];
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+                if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                    return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+                }
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "unauthorized", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "forbidden", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing error responses in thinger openapi specification
+        if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
+            if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                throw new ApiException<undefined>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], undefined, response.headers);
+            }
+            const body : any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
      * @params response Response returned by the server for a request to readProfile
      * @throws ApiException if the response code was not in [200, 299]
      */
@@ -2806,6 +3668,65 @@ export class ProductsApiResponseProcessor {
      * @throws ApiException if the response code was not in [200, 299]
      */
      public async readServicesWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
+        const contentLength = response.headers["content-length"];
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+                if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                    return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+                }
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "unauthorized", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "forbidden", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing error responses in thinger openapi specification
+        if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
+            if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                throw new ApiException<undefined>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], undefined, response.headers);
+            }
+            const body : any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to readServices_1
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async readServices_1WithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
         const contentLength = response.headers["content-length"];
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
@@ -3101,6 +4022,65 @@ export class ProductsApiResponseProcessor {
      * @throws ApiException if the response code was not in [200, 299]
      */
      public async updateFirmwareToolchainWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
+        const contentLength = response.headers["content-length"];
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+                if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                    return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+                }
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "unauthorized", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "forbidden", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing error responses in thinger openapi specification
+        if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
+            if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                throw new ApiException<undefined>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], undefined, response.headers);
+            }
+            const body : any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to updateProductProfileResource
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async updateProductProfileResourceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
         const contentLength = response.headers["content-length"];
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {

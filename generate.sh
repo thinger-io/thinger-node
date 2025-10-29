@@ -2,7 +2,7 @@
 
 # Get the OpenAPI specification
 curl -X 'GET' \
-  'http://localhost/openapi.json' \
+  'https://perf.aws.thinger.io/openapi.json' \
   -H 'accept: application/json' \
   -o openapi.json
 
@@ -55,7 +55,8 @@ docker run --rm --user 1000 \
   -g typescript \
   -c /local/config.yaml \
   -e mustache \
-  --remove-operation-id-prefix
+  --remove-operation-id-prefix \
+  --skip-validate-spec
 
 #  -i /local/openapi.json \
 #  -t /local/templates \

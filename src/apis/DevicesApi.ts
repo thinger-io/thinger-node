@@ -13,7 +13,7 @@ import {SecurityAuthentication} from '../auth/auth.js';
 import { DeviceCloneRequest } from '../models/DeviceCloneRequest.js';
 import { DeviceUpdateCallbackRequest } from '../models/DeviceUpdateCallbackRequest.js';
 import { DeviceUpdateRequest } from '../models/DeviceUpdateRequest.js';
-import { PluginClonePropertyRequest } from '../models/PluginClonePropertyRequest.js';
+import { ProductClonePropertyRequest } from '../models/ProductClonePropertyRequest.js';
 import { PropertyCreate } from '../models/PropertyCreate.js';
 import { PropertyUpdate } from '../models/PropertyUpdate.js';
 
@@ -157,6 +157,64 @@ export class DevicesApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * AccessDeviceRemoteDesktop
+     * @param user 
+     * @param device 
+     * @param service 
+     */
+    public async accessRemoteDesktopVnc(user: string, device: string, service: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'user' is not null or undefined
+        if (user === null || user === undefined) {
+            throw new RequiredError("DevicesApi", "accessRemoteDesktopVnc", "user");
+        }
+
+
+        // verify required parameter 'device' is not null or undefined
+        if (device === null || device === undefined) {
+            throw new RequiredError("DevicesApi", "accessRemoteDesktopVnc", "device");
+        }
+
+
+        // verify required parameter 'service' is not null or undefined
+        if (service === null || service === undefined) {
+            throw new RequiredError("DevicesApi", "accessRemoteDesktopVnc", "service");
+        }
+
+
+        // Path Params
+        const localVarPath = '/v3/users/{user}/devices/{device}/services/{service}/vnc'
+            .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
+            .replace('{' + 'device' + '}', encodeURIComponent(String(device)))
+            .replace('{' + 'service' + '}', encodeURIComponent(String(service)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["oauth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      * AccessDeviceResources
      * @param user 
      * @param device 
@@ -234,7 +292,7 @@ export class DevicesApiRequestFactory extends BaseAPIRequestFactory {
 
 
         // Path Params
-        const localVarPath = '/v3/users/{user}/devices/{device}/services/webs/{service}'
+        const localVarPath = '/v3/users/{user}/devices/{device}/services/{service}/web'
             .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
             .replace('{' + 'device' + '}', encodeURIComponent(String(device)))
             .replace('{' + 'service' + '}', encodeURIComponent(String(service)));
@@ -401,13 +459,63 @@ export class DevicesApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * CloneDeviceConfig
+     * @param user 
+     * @param device 
+     */
+    public async cloneConfig(user: string, device: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'user' is not null or undefined
+        if (user === null || user === undefined) {
+            throw new RequiredError("DevicesApi", "cloneConfig", "user");
+        }
+
+
+        // verify required parameter 'device' is not null or undefined
+        if (device === null || device === undefined) {
+            throw new RequiredError("DevicesApi", "cloneConfig", "device");
+        }
+
+
+        // Path Params
+        const localVarPath = '/v1/users/{user}/devices/{device}/clone'
+            .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
+            .replace('{' + 'device' + '}', encodeURIComponent(String(device)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["oauth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      * CloneDeviceProperty
      * @param user 
      * @param device 
      * @param property 
-     * @param pluginClonePropertyRequest 
+     * @param productClonePropertyRequest 
      */
-    public async cloneProperty(user: string, device: string, property: string, pluginClonePropertyRequest: PluginClonePropertyRequest, _options?: Configuration): Promise<RequestContext> {
+    public async cloneProperty(user: string, device: string, property: string, productClonePropertyRequest: ProductClonePropertyRequest, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'user' is not null or undefined
@@ -428,9 +536,9 @@ export class DevicesApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
-        // verify required parameter 'pluginClonePropertyRequest' is not null or undefined
-        if (pluginClonePropertyRequest === null || pluginClonePropertyRequest === undefined) {
-            throw new RequiredError("DevicesApi", "cloneProperty", "pluginClonePropertyRequest");
+        // verify required parameter 'productClonePropertyRequest' is not null or undefined
+        if (productClonePropertyRequest === null || productClonePropertyRequest === undefined) {
+            throw new RequiredError("DevicesApi", "cloneProperty", "productClonePropertyRequest");
         }
 
 
@@ -451,10 +559,68 @@ export class DevicesApiRequestFactory extends BaseAPIRequestFactory {
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(pluginClonePropertyRequest, "PluginClonePropertyRequest", ""),
+            ObjectSerializer.serialize(productClonePropertyRequest, "ProductClonePropertyRequest", ""),
             contentType
         );
         requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["oauth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * CloneDevicePropertyConfig
+     * @param user 
+     * @param device 
+     * @param property 
+     */
+    public async clonePropertyConfig(user: string, device: string, property: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'user' is not null or undefined
+        if (user === null || user === undefined) {
+            throw new RequiredError("DevicesApi", "clonePropertyConfig", "user");
+        }
+
+
+        // verify required parameter 'device' is not null or undefined
+        if (device === null || device === undefined) {
+            throw new RequiredError("DevicesApi", "clonePropertyConfig", "device");
+        }
+
+
+        // verify required parameter 'property' is not null or undefined
+        if (property === null || property === undefined) {
+            throw new RequiredError("DevicesApi", "clonePropertyConfig", "property");
+        }
+
+
+        // Path Params
+        const localVarPath = '/v3/users/{user}/devices/{device}/properties/{property}/clone'
+            .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
+            .replace('{' + 'device' + '}', encodeURIComponent(String(device)))
+            .replace('{' + 'property' + '}', encodeURIComponent(String(property)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
@@ -1479,6 +1645,64 @@ export class DevicesApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * ReadDeviceService
+     * @param user 
+     * @param device 
+     * @param service 
+     */
+    public async readService(user: string, device: string, service: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'user' is not null or undefined
+        if (user === null || user === undefined) {
+            throw new RequiredError("DevicesApi", "readService", "user");
+        }
+
+
+        // verify required parameter 'device' is not null or undefined
+        if (device === null || device === undefined) {
+            throw new RequiredError("DevicesApi", "readService", "device");
+        }
+
+
+        // verify required parameter 'service' is not null or undefined
+        if (service === null || service === undefined) {
+            throw new RequiredError("DevicesApi", "readService", "service");
+        }
+
+
+        // Path Params
+        const localVarPath = '/v3/users/{user}/devices/{device}/services/{service}'
+            .replace('{' + 'user' + '}', encodeURIComponent(String(user)))
+            .replace('{' + 'device' + '}', encodeURIComponent(String(device)))
+            .replace('{' + 'service' + '}', encodeURIComponent(String(service)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["bearerAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        // Apply auth methods
+        authMethod = _config.authMethods["oauth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      * ReadDeviceStatistics
      * @param user 
      * @param device 
@@ -2352,6 +2576,65 @@ export class DevicesApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
+     * @params response Response returned by the server for a request to accessRemoteDesktopVnc
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async accessRemoteDesktopVncWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
+        const contentLength = response.headers["content-length"];
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+                if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                    return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+                }
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "unauthorized", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "forbidden", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing error responses in thinger openapi specification
+        if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
+            if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                throw new ApiException<undefined>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], undefined, response.headers);
+            }
+            const body : any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
      * @params response Response returned by the server for a request to accessResources
      * @throws ApiException if the response code was not in [200, 299]
      */
@@ -2588,10 +2871,128 @@ export class DevicesApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
+     * @params response Response returned by the server for a request to cloneConfig
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async cloneConfigWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
+        const contentLength = response.headers["content-length"];
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+                if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                    return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+                }
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "unauthorized", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "forbidden", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing error responses in thinger openapi specification
+        if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
+            if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                throw new ApiException<undefined>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], undefined, response.headers);
+            }
+            const body : any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
      * @params response Response returned by the server for a request to cloneProperty
      * @throws ApiException if the response code was not in [200, 299]
      */
      public async clonePropertyWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
+        const contentLength = response.headers["content-length"];
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+                if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                    return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+                }
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "unauthorized", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "forbidden", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing error responses in thinger openapi specification
+        if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
+            if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                throw new ApiException<undefined>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], undefined, response.headers);
+            }
+            const body : any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to clonePropertyConfig
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async clonePropertyConfigWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
         const contentLength = response.headers["content-length"];
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
@@ -3654,6 +4055,65 @@ export class DevicesApiResponseProcessor {
      * @throws ApiException if the response code was not in [200, 299]
      */
      public async readPropertyWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
+        const contentLength = response.headers["content-length"];
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+                if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                    return new HttpInfo(response.httpStatusCode, response.headers, response.body, undefined);
+                }
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("401", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "unauthorized", body, response.headers);
+        }
+        if (isCodeInRange("403", response.httpStatusCode)) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, "forbidden", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        // Work around for missing error responses in thinger openapi specification
+        if (response.httpStatusCode >= 400 && response.httpStatusCode <= 599 && HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES]  !== undefined) {
+            if ( contentLength === "0" && typeof contentType === 'undefined' ) {
+                throw new ApiException<undefined>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], undefined, response.headers);
+            }
+            const body : any = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "any", ""
+            ) as any;
+            throw new ApiException<any>(response.httpStatusCode, HTTP_ERROR_RESPONSES[response.httpStatusCode.toString() as keyof typeof HTTP_ERROR_RESPONSES], body, response.headers);
+        }
+
+        throw new ApiException<string | Buffer | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to readService
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async readServiceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<any >> {
         const contentLength = response.headers["content-length"];
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {

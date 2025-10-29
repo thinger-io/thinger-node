@@ -21,5 +21,7 @@ export enum ComparisonExpressions {
     Equal = 'equal',
     NotEqual = 'not_equal',
     Inside = 'inside',
-    Outside = 'outside'
+    Outside = 'outside',
+    Present = 'present',
+    Absent = 'absent'
 }

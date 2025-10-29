@@ -1,9 +1,6 @@
 .gitattributes
 .gitignore
 .openapi-generator-ignore
-DevicesApi.md
-PluginsApi.md
-ProductsApi.md
 README.md
 apis/DevicesApi.ts
 apis/PluginsApi.ts
@@ -12,6 +9,9 @@ apis/baseapi.ts
 apis/exception.ts
 auth/auth.ts
 configuration.ts
+docs/DevicesApi.md
+docs/PluginsApi.md
+docs/ProductsApi.md
 git_push.sh
 http/http.ts
 http/isomorphic-fetch.ts
@@ -27,9 +27,12 @@ models/DeviceUpdateRequestAssetGroup.ts
 models/ObjectSerializer.ts
 models/OperatorExpressions.ts
 models/PluginClonePropertyRequest.ts
+models/ProductClonePropertyRequest.ts
 models/ProductCloneRequest.ts
 models/ProductConditionalIcon.ts
 models/ProductConditionalIconConditionsInner.ts
+models/ProductConditionalIconConditionsInnerOneOf.ts
+models/ProductConditionalIconConditionsInnerOneOf1.ts
 models/ProductConfig.ts
 models/ProductCreateFirmwareRequest.ts
 models/ProductCreateRequest.ts
@@ -39,6 +42,7 @@ models/ProductUpdateRequest.ts
 models/Property.ts
 models/PropertyCreate.ts
 models/PropertyForm.ts
+models/PropertyPerm.ts
 models/PropertyUpdate.ts
 models/all.ts
 package.json
