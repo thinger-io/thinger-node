@@ -1,4 +1,4 @@
-## @thinger-io/thinger-node@0.1.1
+## @thinger-io/thinger-node@0.1.0
 
 This generator creates TypeScript/JavaScript client that utilizes fetch-api.
 
@@ -21,7 +21,7 @@ Navigate to the folder of your consuming project and run one of the following co
 _published:_
 
 ```
-npm install @thinger-io/thinger-node@0.1.1 --save
+npm install @thinger-io/thinger-node@0.1.0 --save
 ```
 
 _unPublished (not recommended):_
