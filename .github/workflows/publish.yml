@@ -52,10 +52,6 @@ jobs:
               done
           elif [ '${{ env.branch }}' == 'main' ]; then
               echo "npm_tag_version=latest" >> $GITHUB_ENV
-              if git tag --list | grep -q "^${{ env.tag_version }}$"; then
-                echo "Error: Tag ${{ env.tag_version }} already exists"
-                exit 1
-              fi
           elif [ `git tag --list | grep -q ${{ env.tag_version }}` -ne 0 ]; then exit 1; fi
 
       - name: Update package.json version, package-lock.json and commit
